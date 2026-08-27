@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Normal distribution curve above rising score bars">
+  <defs>
+    <linearGradient id="bgsat" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2143"/><stop offset="1" stop-color="#071429"/>
+    </linearGradient>
+    <!-- userSpaceOnUse is required, not stylistic: an objectBoundingBox
+         gradient cannot resolve against a zero-width bbox, so every straight
+         axis line and bar below would silently fail to paint. -->
+    <linearGradient id="goldsat" gradientUnits="userSpaceOnUse" x1="120" y1="120" x2="680" y2="680">
+      <stop offset="0" stop-color="#e6c87f"/><stop offset="1" stop-color="#b98c2e"/>
+    </linearGradient>
+    <pattern id="gridsat" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glowsat" cx=".5" cy=".45" r=".62">
+      <stop offset="0" stop-color="#c69a3e" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#c69a3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bgsat)"/>
+  <rect width="800" height="800" fill="url(#gridsat)"/>
+  <rect width="800" height="800" fill="url(#glowsat)"/>
+  <g fill="none" stroke="url(#goldsat)" stroke-linecap="round" stroke-linejoin="round">
+
+    <path d="M140 430 C 235 430 250 175 400 175 C 550 175 565 430 660 430" stroke-width="7"/>
+    <path d="M140 430 H660" stroke-width="3.5" stroke-opacity=".55"/>
+    <path d="M400 175 V430" stroke-width="3" stroke-dasharray="10 12" stroke-opacity=".6"/>
+    <path d="M320 430 V290" stroke-width="2.5" stroke-opacity=".35"/>
+    <path d="M480 430 V290" stroke-width="2.5" stroke-opacity=".35"/>
+    <circle cx="400" cy="175" r="13" fill="url(#goldsat)" stroke="none"/>
+    <g stroke-width="26" stroke-opacity=".85">
+      <path d="M190 640 V612"/><path d="M295 640 V568"/><path d="M400 640 V520"/>
+      <path d="M505 640 V464"/><path d="M610 640 V400"/>
+    </g>
+    <path d="M140 640 H660" stroke-width="3.5" stroke-opacity=".55"/>
+  </g>
+</svg>

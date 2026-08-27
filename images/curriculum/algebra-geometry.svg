@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Coordinate plane with a parabola and a right triangle">
+  <defs>
+    <linearGradient id="bgalgebra" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2143"/><stop offset="1" stop-color="#071429"/>
+    </linearGradient>
+    <!-- userSpaceOnUse is required, not stylistic: an objectBoundingBox
+         gradient cannot resolve against a zero-width bbox, so every straight
+         axis line and bar below would silently fail to paint. -->
+    <linearGradient id="goldalgebra" gradientUnits="userSpaceOnUse" x1="120" y1="120" x2="680" y2="680">
+      <stop offset="0" stop-color="#e6c87f"/><stop offset="1" stop-color="#b98c2e"/>
+    </linearGradient>
+    <pattern id="gridalgebra" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glowalgebra" cx=".5" cy=".45" r=".62">
+      <stop offset="0" stop-color="#c69a3e" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#c69a3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bgalgebra)"/>
+  <rect width="800" height="800" fill="url(#gridalgebra)"/>
+  <rect width="800" height="800" fill="url(#glowalgebra)"/>
+  <g fill="none" stroke="url(#goldalgebra)" stroke-linecap="round" stroke-linejoin="round">
+
+    <path d="M110 420 H690" stroke-width="4" stroke-opacity=".6"/>
+    <path d="M300 130 V700" stroke-width="4" stroke-opacity=".6"/>
+    <g stroke-width="3" stroke-opacity=".4">
+      <path d="M380 408 v24"/><path d="M460 408 v24"/><path d="M540 408 v24"/><path d="M620 408 v24"/>
+      <path d="M220 408 v24"/><path d="M140 408 v24"/>
+      <path d="M288 340 h24"/><path d="M288 260 h24"/><path d="M288 180 h24"/>
+      <path d="M288 500 h24"/><path d="M288 580 h24"/><path d="M288 660 h24"/>
+    </g>
+    <path d="M155 200 C 232 560 368 560 445 200" stroke-width="7"/>
+    <circle cx="300" cy="420" r="10" fill="url(#goldalgebra)" stroke="none"/>
+    <path d="M430 660 L 650 660 L 650 470 Z" stroke-width="6"/>
+    <path d="M622 660 v-28 h28" stroke-width="4" stroke-opacity=".85"/>
+  </g>
+</svg>

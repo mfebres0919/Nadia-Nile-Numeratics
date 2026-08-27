@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Curve with Riemann sum columns and a tangent line">
+  <defs>
+    <linearGradient id="bgcalculus" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2143"/><stop offset="1" stop-color="#071429"/>
+    </linearGradient>
+    <!-- userSpaceOnUse is required, not stylistic: an objectBoundingBox
+         gradient cannot resolve against a zero-width bbox, so every straight
+         axis line and bar below would silently fail to paint. -->
+    <linearGradient id="goldcalculus" gradientUnits="userSpaceOnUse" x1="120" y1="120" x2="680" y2="680">
+      <stop offset="0" stop-color="#e6c87f"/><stop offset="1" stop-color="#b98c2e"/>
+    </linearGradient>
+    <pattern id="gridcalculus" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glowcalculus" cx=".5" cy=".45" r=".62">
+      <stop offset="0" stop-color="#c69a3e" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#c69a3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bgcalculus)"/>
+  <rect width="800" height="800" fill="url(#gridcalculus)"/>
+  <rect width="800" height="800" fill="url(#glowcalculus)"/>
+  <g fill="none" stroke="url(#goldcalculus)" stroke-linecap="round" stroke-linejoin="round">
+
+    <path d="M120 620 H700" stroke-width="4" stroke-opacity=".6"/>
+    <path d="M170 690 V150" stroke-width="4" stroke-opacity=".6"/>
+    <g stroke-width="3" stroke-opacity=".4">
+      <path d="M240 620 V530"/><path d="M310 620 V462"/><path d="M380 620 V408"/>
+      <path d="M450 620 V364"/><path d="M520 620 V326"/><path d="M590 620 V292"/>
+      <path d="M240 530 H310"/><path d="M310 462 H380"/><path d="M380 408 H450"/>
+      <path d="M450 364 H520"/><path d="M520 326 H590"/><path d="M590 292 H660"/>
+      <path d="M660 620 V292"/>
+    </g>
+    <path d="M170 620 C 300 620 315 300 445 268 C 530 246 590 222 660 190" stroke-width="7"/>
+    <path d="M310 500 L 570 320" stroke-width="4.5" stroke-dasharray="14 11" stroke-opacity=".85"/>
+    <circle cx="440" cy="410" r="13" fill="url(#goldcalculus)" stroke="none"/>
+  </g>
+</svg>

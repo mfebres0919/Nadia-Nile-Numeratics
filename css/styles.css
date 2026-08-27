@@ -1,0 +1,824 @@
+/* ==========================================================================
+   NILE NUMERATICS — HOME PAGE (LOCAL) STYLESHEET
+   Only styles unique to sections on index.html live here.
+   Anything reusable (buttons, header, footer, tokens) belongs in global.css.
+   Mobile-first — every @media block is min-width.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+#hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(var(--header-h) + var(--topbar-h) + clamp(2.5rem, 9vw, 4.5rem));
+  padding-bottom: 0;
+  background-color: var(--navy-900);
+}
+
+/* Warm gold bloom behind the top-right corner. Drawn with a gradient so it
+   costs zero network requests and never blocks the LCP. */
+#hero::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  top: -18%;
+  right: -25%;
+  width: 46rem;
+  height: 46rem;
+  background-image: radial-gradient(circle, rgba(198, 154, 62, 0.22) 0%, rgba(198, 154, 62, 0) 68%);
+  pointer-events: none;
+}
+
+/* -- Drifting geometry field --
+   Two line weights, tuned in one place. Raise these two values if you want
+   the shapes to read stronger. */
+.hero__shapes {
+  --shape-line: rgba(255, 255, 255, 0.09);
+  --shape-line-gold: rgba(198, 154, 62, 0.18);
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  fill: none;
+  stroke: var(--shape-line);
+  stroke-width: 1.25;
+  /* Keep the outline hairline-thin no matter how large the shape is scaled. */
+  vector-effect: non-scaling-stroke;
+}
+
+.shape--gold { stroke: var(--shape-line-gold); }
+
+/* Position / size / tempo. Odd durations keep the field from ever syncing up. */
+.shape--1 { top:  6%;  left:  4%;  width: 9rem;    height: 9rem;    animation-duration: 23s; }
+.shape--2 { top: 58%;  left: 10%;  width: 5.5rem;  height: 5.5rem;  animation-duration: 31s; }
+.shape--3 { top: 20%;  right:26%;  width: 7rem;    height: 7rem;    animation-duration: 27s; }
+.shape--4 { top: 80%;  left: 44%;  width: 4rem;    height: 4rem;    animation-duration: 19s; }
+.shape--5 { top:  9%;  right: 6%;  width: 6.5rem;  height: 6.5rem;  animation-duration: 35s; }
+.shape--6 { top: 68%;  right: 4%;  width: 5rem;    height: 5rem;    animation-duration: 25s; }
+.shape--7 { top: 38%;  left: 32%;  width: 12rem;   height: 12rem;   animation-duration: 41s; }
+.shape--8 { top: 44%;  right:38%;  width: 3.5rem;  height: 3.5rem;  animation-duration: 17s; }
+
+.drift-a { animation-name: drift-a; }
+.drift-b { animation-name: drift-b; }
+
+.drift-a, .drift-b {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* The two paths run against each other, so neighbouring shapes always
+   separate rather than travelling as a block. */
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(1.25rem, -2.5rem, 0) rotate(9deg); }
+}
+
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(-1.5rem, 2.25rem, 0) rotate(-11deg); }
+}
+
+/* Phones get a lighter field — fewer shapes, less overlap with the copy. */
+@media (max-width: 47.9375rem) {
+  .shape--3, .shape--7, .shape--8 { display: none; }
+}
+
+/* Thin gold orbit rings — pure CSS, decorative only */
+.hero__ring {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(198, 154, 62, 0.16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero__ring--1 { width: 24rem; height: 24rem; top: -9rem; left: -11rem; }
+.hero__ring--2 { width: 40rem; height: 40rem; bottom: -22rem; right: -14rem; border-color: rgba(198, 154, 62, 0.1); }
+
+@media (min-width: 64rem) {
+  .hero__ring--1 { width: 34rem; height: 34rem; top: -12rem; left: -13rem; }
+  .hero__ring--2 { width: 56rem; height: 56rem; bottom: -30rem; right: -18rem; }
+}
+
+/* -- Grid -- */
+.hero__grid {
+  display: grid;
+  gap: clamp(3rem, 9vw, 4.5rem);
+  align-items: center;
+  padding-bottom: clamp(3.5rem, 9vw, 6rem);
+}
+
+@media (min-width: 64rem) {
+  .hero__grid {
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(3rem, 6vw, 5.5rem);
+    min-height: calc(100vh - var(--header-h) - var(--topbar-h) - 8rem);
+    padding-bottom: clamp(4rem, 7vw, 6.5rem);
+  }
+}
+
+/* -- Copy column -- */
+.hero__copy { max-width: 40rem; }
+
+.hero__title {
+  margin-top: 1.5rem;
+  color: var(--white);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.hero__lead {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--body-inv);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 2.25rem;
+}
+
+/* Small reassurance line under the buttons */
+.hero__note {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 1.75rem;
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero__note::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  flex-shrink: 0;
+  background-color: var(--gold-400);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.25rem rgba(221, 184, 99, 0.18);
+}
+
+/* -- Figure column -- */
+.hero__figure {
+  position: relative;
+  width: min(100%, 26rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+  .hero__figure { width: min(100%, 30rem); margin-right: 0; }
+}
+
+/* Offset gold outline sitting behind the portrait */
+.hero__figure::before {
+  content: "";
+  position: absolute;
+  inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+  border: 1px solid rgba(198, 154, 62, 0.5);
+  border-radius: 13rem 13rem var(--radius-lg) var(--radius-lg);
+  pointer-events: none;
+}
+
+.hero__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 13rem 13rem var(--radius-lg) var(--radius-lg);
+  background-color: var(--navy-700);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero__media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+/* Navy scrim: settles the daylight photo into the dark hero and gives the
+   lower floating card a surface to sit against. */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to top,
+    rgba(7, 20, 41, 0.72) 0%,
+    rgba(7, 20, 41, 0.28) 32%,
+    rgba(7, 20, 41, 0) 62%
+  );
+}
+
+/* -- Floating stat cards -- */
+.hero__card {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background-color: rgba(255, 255, 255, 0.97);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.hero__card-icon {
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  width: 2.375rem;
+  height: 2.375rem;
+  background-color: var(--navy-800);
+  border-radius: 50%;
+  color: var(--gold-400);
+}
+
+.hero__card-icon svg { width: 1.125rem; height: 1.125rem; }
+
+.hero__card-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hero__card-title {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.hero__card-sub {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--body);
+}
+
+.hero__card--1 { top: -5%; left: -0.75rem; max-width: 15.5rem; }
+.hero__card--2 { bottom: 8%; right: -0.75rem; max-width: 15.5rem; }
+
+@media (min-width: 48rem) {
+  .hero__card { padding: 1rem 1.25rem; max-width: none; }
+  .hero__card--1 { left: -2.5rem; }
+  .hero__card--2 { right: -2.5rem; }
+  .hero__card-title { font-size: 0.9375rem; }
+}
+
+@media (min-width: 64rem) {
+  .hero__card--1 { top: 16%; left: -3.25rem; }
+  .hero__card--2 { bottom: 10%; right: -1.5rem; }
+}
+
+/* Only let the cards hang fully outside the column once there is
+   room in the page gutter to absorb them. */
+@media (min-width: 90rem) {
+  .hero__card--2 { right: -3rem; }
+}
+
+/* -- Credential marquee across the bottom of the hero --
+   A cream band capping the navy hero, carrying the logos of the
+   institutions behind each credential. -- */
+.hero__credentials {
+  background-color: var(--white);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  padding-block: 1.5rem;
+  /* Feather both ends so items enter and leave instead of being chopped off. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-shrink: 0;
+  min-width: 100%;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  padding-right: clamp(2.5rem, 6vw, 5rem);
+  animation: marquee 34s linear infinite;
+}
+
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* -- One credential: label above, institution logo below -- */
+.logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.logo-card__label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+}
+
+/* Every logo is centred in a slot of the same height, so the labels above
+   them and the logos below both stay on a shared line. */
+.logo-card picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+}
+
+/* Heights are absolute, not percentages: a percentage would resolve against
+   the auto-sized row rather than the slot, and the logo would render at its
+   natural size. */
+.logo-card img { width: auto; }
+
+/* Matching cap heights is not the same as matching optical weight — a round
+   mark has to run taller than a wide wordmark to read at the same size. */
+.logo-card--nasa   img { height: 2.25rem; }
+.logo-card--boeing img { height: 1.875rem; }
+.logo-card--lsu    img { height: 1.25rem; }
+
+@media (min-width: 64rem) {
+  .marquee { padding-block: 2rem; }
+  .logo-card { gap: 0.875rem; }
+  .logo-card__label { font-size: 0.6875rem; }
+  .logo-card picture { height: 3rem; }
+
+  .logo-card--nasa   img { height: 3rem; }
+  .logo-card--boeing img { height: 2.5rem; }
+  .logo-card--lsu    img { height: 1.625rem; }
+}
+
+/* -- Entrance motion --
+   The <h1> and the portrait are deliberately NOT animated: they are the
+   LCP candidates, and starting them at opacity:0 pushes the LCP timestamp
+   back. Only supporting elements move. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    opacity: 0;
+    animation: rise 0.6s var(--ease) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   CURRICULUM
+   A tab strip of pennant-shaped cards over a single detail plate. The card
+   shape is one clip-path shared by two stacked layers: the outer element
+   paints the edge colour, the inner .track__face paints the fill and is held
+   2px inside it by padding. That is what produces an outline which follows
+   the notch — a real border cannot, because clip-path cuts borders away.
+   -------------------------------------------------------------------------- */
+/* Height of the wave divider below. Declared here rather than on .curriculum
+   because the process section has to reserve the same amount of top padding,
+   and a custom property set on a sibling would not reach it. */
+:root { --divider-h: clamp(2.5rem, 6vw, 6.25rem); }
+
+.curriculum {
+  position: relative;        /* Anchor for the divider hanging below it. */
+  padding-block: var(--section-y);
+  background-color: var(--cream);
+}
+
+/* Wave divider into the process section.
+
+   It hangs BELOW the curriculum section (top: 100%) rather than sitting
+   inside it — the shapes are cream, so drawn over cream they would be
+   invisible. Overlapping the white band beneath is the whole effect.
+
+   preserveAspectRatio="none" is added to the source SVG deliberately: the
+   default (xMidYMid meet) scales the artwork uniformly, so with
+   background-size: 100% 100% it would letterbox instead of spanning the
+   full width. A divider has to stretch. */
+.curriculum::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1;                /* Clears the .process background painted after it. */
+  height: var(--divider-h);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><g fill="%23FAF7F0"><path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path><path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path><path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path><path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path></g></svg>');
+}
+
+.curriculum__title {
+  margin-top: 1rem;
+  font-weight: 600;
+  max-width: 20ch;
+}
+
+/* -- Track cards ---------------------------------------------------------- */
+.tracks {
+  --notch: polygon(0 0, 100% 0, 100% calc(100% - 2rem), 50% 100%, 0 calc(100% - 2rem));
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* Five cards over two columns leaves the last one stranded, so it takes the
+   full width. Scoped below the five-across breakpoint on purpose: at three
+   columns the same rule would push card four onto a row of its own. */
+@media (max-width: 63.9375rem) {
+  .tracks > .track:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+.track {
+  clip-path: var(--notch);
+  padding: 2px;                      /* Thickness of the traced outline. */
+  background-color: var(--gold-500);
+  text-align: center;
+  transition: background-color var(--t-base), transform var(--t-base);
+}
+
+.track__face {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.625rem;
+  height: 100%;
+  min-height: 9.5rem;
+  padding: 1.25rem 0.75rem 2.75rem;  /* Bottom clears the notch. */
+  clip-path: var(--notch);
+  background-color: var(--white);
+  transition: background-color var(--t-base), color var(--t-base);
+}
+
+.track__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--gold-600);
+  transition: color var(--t-base);
+}
+
+.track__icon svg { width: 100%; height: 100%; }
+
+.track__name {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: balance;
+  transition: color var(--t-base);
+}
+
+/* clip-path cuts a box-shadow off with the rest of the box, so the hover
+   affordance is a lift rather than a glow. */
+@media (hover: hover) {
+  .track:not(.is-active):hover { transform: translateY(-3px); }
+  .track:not(.is-active):hover .track__face { background-color: var(--stone); }
+}
+
+/* The clipped element cannot show a focus ring either — it would be cut off
+   at the edge — so the ring is drawn inside the face. */
+.track:focus-visible { outline: none; }
+.track:focus-visible .track__face {
+  outline: 2px solid var(--gold-600);
+  outline-offset: -5px;
+}
+
+.track.is-active {
+  background-color: var(--navy-800);   /* Navy edge under the gold face. */
+  transform: none;
+}
+
+.track.is-active .track__face {
+  background-color: var(--gold-400);
+}
+
+.track.is-active .track__icon,
+.track.is-active .track__name { color: var(--navy-900); }
+
+/* -- Detail plate --------------------------------------------------------- */
+.plate {
+  display: grid;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  overflow: hidden;
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Required: the display:grid above outranks the UA stylesheet's rule for
+   [hidden], so without this every inactive panel would still render. */
+.plate[hidden] { display: none; }
+
+.plate__body { padding: clamp(1.75rem, 4vw, 3.25rem); }
+
+.plate__title {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  max-width: 22ch;
+}
+
+.plate__lead {
+  margin-top: 0.875rem;
+  max-width: 52ch;
+  font-weight: 300;
+  font-size: var(--fs-lead);
+}
+
+.plate__list {
+  display: grid;
+  gap: 0.75rem 2rem;
+  margin-top: 1.75rem;
+}
+
+.plate__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.plate__list svg {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--gold-600);
+}
+
+.plate__cta { margin-top: 2rem; }
+
+/* -- Plate artwork -------------------------------------------------------- */
+.plate__media {
+  position: relative;
+  min-height: 14rem;
+  background-color: var(--navy-900);
+}
+
+.plate__media img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 40rem) {
+  .plate__list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 64rem) {
+  .tracks {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+
+  .track__face { min-height: 11rem; padding-inline: 1rem; }
+  .track__icon { width: 3.25rem; height: 3.25rem; }
+  .track__name { font-size: 1rem; }
+
+  .plate { grid-template-columns: minmax(0, 1fr) 38%; }
+
+  /* The artwork's leading edge is a half-ellipse, with a gold copy of the
+     same shape sitting behind and 1.5rem to its left — that offset is the
+     whole effect, a crescent of gold along the curve. */
+  .plate__media img,
+  .plate__media::before { border-radius: 46% 0 0 46% / 50% 0 0 50%; }
+
+  .plate__media::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 -1.125rem;
+    z-index: 0;
+    background-image: linear-gradient(150deg, var(--gold-400), var(--gold-600));
+  }
+}
+
+/* A switch should read as a switch — the incoming panel eases up rather than
+   snapping, so the change of content is legible. */
+@media (prefers-reduced-motion: no-preference) {
+  .plate:not([hidden]) { animation: plate-in 0.4s var(--ease) both; }
+}
+
+@keyframes plate-in {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   PROCESS
+   Four steps reading left to right. White band, so it separates from the
+   cream curriculum section above it without a rule between them.
+   -------------------------------------------------------------------------- */
+.process {
+  /* The divider overhangs this section's top edge, so the first row of
+     content is pushed clear of it rather than sitting under the wave. */
+  padding-top: calc(var(--section-y) + var(--divider-h));
+  padding-bottom: var(--section-y);
+
+  /* Scattered-marks pattern. In CSS rather than inline in the markup because
+     it is purely decorative: no DOM node, no stacking-context wrangling to
+     keep it behind the content, nothing to hide from assistive tech, and the
+     ~4KB is cached with the stylesheet instead of re-sent with every page.
+     The navy was recoloured from the generator's #000767 to the brand
+     --navy-800; the gold was already an exact --gold-600. */
+  background-color: #fafafa;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1111' height='555.5' viewBox='0 0 1600 800'%3E%3Cpath fill='%23A97F27' opacity='.08' d='M1102.5 734.8c2.5-1.2 24.8-8.6 25.6-7.5.5.7-3.9 23.8-4.6 24.5C1123.3 752.1 1107.5 739.5 1102.5 734.8zM1226.3 229.1c0-.1-4.9-9.4-7-14.2-.1-.3-.3-1.1-.4-1.6-.1-.4-.3-.7-.6-.9-.3-.2-.6-.1-.8.1l-13.1 12.3c0 0 0 0 0 0-.2.2-.3.5-.4.8 0 .3 0 .7.2 1 .1.1 1.4 2.5 2.1 3.6 2.4 3.7 6.5 12.1 6.5 12.2.2.3.4.5.7.6.3 0 .5-.1.7-.3 0 0 1.8-2.5 2.7-3.6 1.5-1.6 3-3.2 4.6-4.7 1.2-1.2 1.6-1.4 2.1-1.6.5-.3 1.1-.5 2.5-1.9C1226.5 230.4 1226.6 229.6 1226.3 229.1zM33 770.3C33 770.3 33 770.3 33 770.3c0-.7-.5-1.2-1.2-1.2-.1 0-.3 0-.4.1-1.6.2-14.3.1-22.2 0-.3 0-.6.1-.9.4-.2.2-.4.5-.4.9 0 .2 0 4.9.1 5.9l.4 13.6c0 .3.2.6.4.9.2.2.5.3.8.3 0 0 .1 0 .1 0 7.3-.7 14.7-.9 22-.6.3 0 .7-.1.9-.3.2-.2.4-.6.4-.9C32.9 783.3 32.9 776.2 33 770.3z'/%3E%3Cpath fill='%230C2143' opacity='.08' d='M171.1 383.4c1.3-2.5 14.3-22 15.6-21.6.8.3 11.5 21.2 11.5 22.1C198.1 384.2 177.9 384 171.1 383.4zM596.4 711.8c-.1-.1-6.7-8.2-9.7-12.5-.2-.3-.5-1-.7-1.5-.2-.4-.4-.7-.7-.8-.3-.1-.6 0-.8.3L574 712c0 0 0 0 0 0-.2.2-.2.5-.2.9 0 .3.2.7.4.9.1.1 1.8 2.2 2.8 3.1 3.1 3.1 8.8 10.5 8.9 10.6.2.3.5.4.8.4.3 0 .5-.2.6-.5 0 0 1.2-2.8 2-4.1 1.1-1.9 2.3-3.7 3.5-5.5.9-1.4 1.3-1.7 1.7-2 .5-.4 1-.7 2.1-2.4C596.9 713.1 596.8 712.3 596.4 711.8zM727.5 179.9C727.5 179.9 727.5 179.9 727.5 179.9c.6.2 1.3-.2 1.4-.8 0-.1 0-.2 0-.4.2-1.4 2.8-12.6 4.5-19.5.1-.3 0-.6-.2-.8-.2-.3-.5-.4-.8-.5-.2 0-4.7-1.1-5.7-1.3l-13.4-2.7c-.3-.1-.7 0-.9.2-.2.2-.4.4-.5.6 0 0 0 .1 0 .1-.8 6.5-2.2 13.1-3.9 19.4-.1.3 0 .6.2.9.2.3.5.4.8.5C714.8 176.9 721.7 178.5 727.5 179.9zM728.5 178.1c-.1-.1-.2-.2-.4-.2C728.3 177.9 728.4 178 728.5 178.1z'/%3E%3Cg fill='%23FFF'%3E%3Cpath d='M699.6 472.7c-1.5 0-2.8-.8-3.5-2.3-.8-1.9 0-4.2 1.9-5 3.7-1.6 6.8-4.7 8.4-8.5 1.6-3.8 1.7-8.1.2-11.9-.3-.9-.8-1.8-1.2-2.8-.8-1.7-1.8-3.7-2.3-5.9-.9-4.1-.2-8.6 2-12.8 1.7-3.1 4.1-6.1 7.6-9.1 1.6-1.4 4-1.2 5.3.4 1.4 1.6 1.2 4-.4 5.3-2.8 2.5-4.7 4.7-5.9 7-1.4 2.6-1.9 5.3-1.3 7.6.3 1.4 1 2.8 1.7 4.3.5 1.1 1 2.2 1.5 3.3 2.1 5.6 2 12-.3 17.6-2.3 5.5-6.8 10.1-12.3 12.5C700.6 472.6 700.1 472.7 699.6 472.7zM740.4 421.4c1.5-.2 3 .5 3.8 1.9 1.1 1.8.4 4.2-1.4 5.3-3.7 2.1-6.4 5.6-7.6 9.5-1.2 4-.8 8.4 1.1 12.1.4.9 1 1.7 1.6 2.7 1 1.7 2.2 3.5 3 5.7 1.4 4 1.2 8.7-.6 13.2-1.4 3.4-3.5 6.6-6.8 10.1-1.5 1.6-3.9 1.7-5.5.2-1.6-1.4-1.7-3.9-.2-5.4 2.6-2.8 4.3-5.3 5.3-7.7 1.1-2.8 1.3-5.6.5-7.9-.5-1.3-1.3-2.7-2.2-4.1-.6-1-1.3-2.1-1.9-3.2-2.8-5.4-3.4-11.9-1.7-17.8 1.8-5.9 5.8-11 11.2-14C739.4 421.6 739.9 421.4 740.4 421.4zM261.3 590.9c5.7 6.8 9 15.7 9.4 22.4.5 7.3-2.4 16.4-10.2 20.4-3 1.5-6.7 2.2-11.2 2.2-7.9-.1-12.9-2.9-15.4-8.4-2.1-4.7-2.3-11.4 1.8-15.9 3.2-3.5 7.8-4.1 11.2-1.6 1.2.9 1.5 2.7.6 3.9-.9 1.2-2.7 1.5-3.9.6-1.8-1.3-3.6.6-3.8.8-2.4 2.6-2.1 7-.8 9.9 1.5 3.4 4.7 5 10.4 5.1 3.6 0 6.4-.5 8.6-1.6 4.7-2.4 7.7-8.6 7.2-15-.5-7.3-5.3-18.2-13-23.9-4.2-3.1-8.5-4.1-12.9-3.1-3.1.7-6.2 2.4-9.7 5-6.6 5.1-11.7 11.8-14.2 19-2.7 7.7-2.1 15.8 1.9 23.9.7 1.4.1 3.1-1.3 3.7-1.4.7-3.1.1-3.7-1.3-4.6-9.4-5.4-19.2-2.2-28.2 2.9-8.2 8.6-15.9 16.1-21.6 4.1-3.1 8-5.1 11.8-6 6-1.4 12 0 17.5 4C257.6 586.9 259.6 588.8 261.3 590.9z'/%3E%3Ccircle cx='1013.7' cy='153.9' r='7.1'/%3E%3Ccircle cx='1024.3' cy='132.1' r='7.1'/%3E%3Ccircle cx='1037.3' cy='148.9' r='7.1'/%3E%3Cpath d='M1508.7 297.2c-4.8-5.4-9.7-10.8-14.8-16.2 5.6-5.6 11.1-11.5 15.6-18.2 1.2-1.7.7-4.1-1-5.2-1.7-1.2-4.1-.7-5.2 1-4.2 6.2-9.1 11.6-14.5 16.9-4.8-5-9.7-10-14.7-14.9-1.5-1.5-3.9-1.5-5.3 0-1.5 1.5-1.5 3.9 0 5.3 4.9 4.8 9.7 9.8 14.5 14.8-1.1 1.1-2.3 2.2-3.5 3.2-4.1 3.8-8.4 7.8-12.4 12-1.4 1.5-1.4 3.8 0 5.3 0 0 0 0 0 0 1.5 1.4 3.9 1.4 5.3-.1 3.9-4 8.1-7.9 12.1-11.7 1.2-1.1 2.3-2.2 3.5-3.3 4.9 5.3 9.8 10.6 14.6 15.9.1.1.1.1.2.2 1.4 1.4 3.7 1.5 5.2.2C1510 301.2 1510.1 298.8 1508.7 297.2zM327.6 248.6l-.4-2.6c-1.5-11.1-2.2-23.2-2.3-37 0-5.5 0-11.5.2-18.5 0-.7 0-1.5 0-2.3 0-5 0-11.2 3.9-13.5 2.2-1.3 5.1-1 8.5.9 5.7 3.1 13.2 8.7 17.5 14.9 5.5 7.8 7.3 16.9 5 25.7-3.2 12.3-15 31-30 32.1L327.6 248.6zM332.1 179.2c-.2 0-.3 0-.4.1-.1.1-.7.5-1.1 2.7-.3 1.9-.3 4.2-.3 6.3 0 .8 0 1.7 0 2.4-.2 6.9-.2 12.8-.2 18.3.1 12.5.7 23.5 2 33.7 11-2.7 20.4-18.1 23-27.8 1.9-7.2.4-14.8-4.2-21.3l0 0C347 188.1 340 183 335 180.3 333.6 179.5 332.6 179.2 332.1 179.2zM516.3 60.8c-.1 0-.2 0-.4-.1-2.4-.7-4-.9-6.7-.7-.7 0-1.3-.5-1.4-1.2 0-.7.5-1.3 1.2-1.4 3.1-.2 4.9 0 7.6.8.7.2 1.1.9.9 1.6C517.3 60.4 516.8 60.8 516.3 60.8zM506.1 70.5c-.5 0-1-.3-1.2-.8-.8-2.1-1.2-4.3-1.3-6.6 0-.7.5-1.3 1.2-1.3.7 0 1.3.5 1.3 1.2.1 2 .5 3.9 1.1 5.8.2.7-.1 1.4-.8 1.6C506.4 70.5 506.2 70.5 506.1 70.5zM494.1 64.4c-.4 0-.8-.2-1-.5-.4-.6-.3-1.4.2-1.8 1.8-1.4 3.7-2.6 5.8-3.6.6-.3 1.4 0 1.7.6.3.6 0 1.4-.6 1.7-1.9.9-3.7 2-5.3 3.3C494.7 64.3 494.4 64.4 494.1 64.4zM500.5 55.3c-.5 0-.9-.3-1.2-.7-.5-1-1.2-1.9-2.4-3.4-.3-.4-.7-.9-1.1-1.4-.4-.6-.3-1.4.2-1.8.6-.4 1.4-.3 1.8.2.4.5.8 1 1.1 1.4 1.3 1.6 2.1 2.6 2.7 3.9.3.6 0 1.4-.6 1.7C500.9 55.3 500.7 55.3 500.5 55.3zM506.7 55c-.3 0-.5-.1-.8-.2-.6-.4-.7-1.2-.3-1.8 1.2-1.7 2.3-3.4 3.3-5.2.3-.6 1.1-.9 1.7-.5.6.3.9 1.1.5 1.7-1 1.9-2.2 3.8-3.5 5.6C507.4 54.8 507.1 55 506.7 55zM1029.3 382.8c-.1 0-.2 0-.4-.1-2.4-.7-4-.9-6.7-.7-.7 0-1.3-.5-1.4-1.2 0-.7.5-1.3 1.2-1.4 3.1-.2 4.9 0 7.6.8.7.2 1.1.9.9 1.6C1030.3 382.4 1029.8 382.8 1029.3 382.8zM1019.1 392.5c-.5 0-1-.3-1.2-.8-.8-2.1-1.2-4.3-1.3-6.6 0-.7.5-1.3 1.2-1.3.7 0 1.3.5 1.3 1.2.1 2 .5 3.9 1.1 5.8.2.7-.1 1.4-.8 1.6C1019.4 392.5 1019.2 392.5 1019.1 392.5zM1007.1 386.4c-.4 0-.8-.2-1-.5-.4-.6-.3-1.4.2-1.8 1.8-1.4 3.7-2.6 5.8-3.6.6-.3 1.4 0 1.7.6.3.6 0 1.4-.6 1.7-1.9.9-3.7 2-5.3 3.3C1007.7 386.3 1007.4 386.4 1007.1 386.4zM1013.5 377.3c-.5 0-.9-.3-1.2-.7-.5-1-1.2-1.9-2.4-3.4-.3-.4-.7-.9-1.1-1.4-.4-.6-.3-1.4.2-1.8.6-.4 1.4-.3 1.8.2.4.5.8 1 1.1 1.4 1.3 1.6 2.1 2.6 2.7 3.9.3.6 0 1.4-.6 1.7C1013.9 377.3 1013.7 377.3 1013.5 377.3zM1019.7 377c-.3 0-.5-.1-.8-.2-.6-.4-.7-1.2-.3-1.8 1.2-1.7 2.3-3.4 3.3-5.2.3-.6 1.1-.9 1.7-.5.6.3.9 1.1.5 1.7-1 1.9-2.2 3.8-3.5 5.6C1020.4 376.8 1020.1 377 1019.7 377zM1329.7 573.4c-1.4 0-2.9-.2-4.5-.7-8.4-2.7-16.6-12.7-18.7-20-.4-1.4-.7-2.9-.9-4.4-8.1 3.3-15.5 10.6-15.4 21 0 1.5-1.2 2.7-2.7 2.8 0 0 0 0 0 0-1.5 0-2.7-1.2-2.7-2.7-.1-6.7 2.4-12.9 7-18 3.6-4 8.4-7.1 13.7-8.8.5-6.5 3.1-12.9 7.4-17.4 7-7.4 18.2-8.9 27.3-10.1l.7-.1c1.5-.2 2.9.9 3.1 2.3.2 1.5-.9 2.9-2.3 3.1l-.7.1c-8.6 1.2-18.4 2.5-24 8.4-3 3.2-5 7.7-5.7 12.4 7.9-1 17.7 1.3 24.3 5.7 4.3 2.9 7.1 7.8 7.2 12.7.2 4.3-1.7 8.3-5.2 11.1C1335.2 572.4 1332.6 573.4 1329.7 573.4zM1311 546.7c.1 1.5.4 3 .8 4.4 1.7 5.8 8.7 14.2 15.1 16.3 2.8.9 5.1.5 7.2-1.1 2.7-2.1 3.2-4.8 3.1-6.6-.1-3.2-2-6.4-4.8-8.3C1326.7 547.5 1317.7 545.6 1311 546.7z'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: scroll;
+}
+
+/* iOS Safari mis-renders fixed backgrounds — it sizes them to the document
+   rather than the viewport, so the pattern comes out hugely scaled. Touch
+   devices get the normal scrolling background instead. */
+@media (hover: none) {
+  .process { background-attachment: scroll; }
+}
+
+.process__title {
+  margin-top: 1rem;
+  max-width: 24ch;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+
+/* Full-bleed on purpose: the track has to run past both edges of the
+   container for items to enter and leave rather than pop in. */
+.process__marquee {
+  display: flex;
+  overflow: hidden;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  /* Feather both ends so steps fade in and out at the edges. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.process__track {
+  /* One value for both the space between steps and the trailing space after
+     the last one. They must stay equal: the trailing space is what separates
+     step 04 from the next copy's 01, so if it differs from the gap the loop
+     visibly hitches once per cycle. */
+  --step-gap: clamp(2rem, 4vw, 3.5rem);
+
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  /* Without this the track is only as wide as its content, so on a screen
+     wider than that the copy runs out before the right edge and leaves a
+     dead strip. No padding-left, or the seam would gain an extra gutter. */
+  min-width: 100%;
+  gap: var(--step-gap);
+  padding-right: var(--step-gap);
+  /* Direction lives entirely in the keyframes below: 0 to -100% drifts the
+     track leftward, so items enter from the right; swapping those two
+     endpoints reverses it. The unit is load-bearing — a bare -100 is an
+     invalid transform, the whole declaration gets dropped, and the track
+     silently stops moving. Because -100% is exactly one track width, the
+     loop restarts on the frame the copy lands where the original was, so
+     there is no jump to see either way. */
+  animation: process-marquee 55s linear infinite;
+}
+
+/* Moving text has to be stoppable to be readable. */
+.process__marquee:hover .process__track,
+.process__marquee:focus-within .process__track { animation-play-state: paused; }
+
+@keyframes process-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Grows, so on a wide screen the four steps stretch to fill the track rather
+   than leaving that dead strip on the right. On a narrow one the basis wins
+   and the track simply overflows, which is what keeps it scrolling. */
+.step { flex: 1 0 clamp(15rem, 24vw, 20rem); }
+
+.step__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 8.25rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  color: var(--gold-500);
+}
+
+/* The number fades down its own height, which is what keeps it reading as a
+   watermark behind the step rather than as a heading competing with one.
+   Guarded: without background-clip the transparent fill would render the
+   whole numeral invisible, so the flat gold-500 above stays the fallback. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .step__num {
+    background-image: linear-gradient(
+      180deg,
+      var(--gold-500) 0%,
+      var(--gold-400) 42%,
+      rgba(198, 154, 62, 0.14) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.step__title {
+  margin-top: 1.125rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);          /* navy */
+}
+
+.step__text {
+  margin-top: 0.875rem;
+  max-width: 32ch;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #111111;             /* black, per the reference */
+}
+
+@media (min-width: 64rem) {
+  .step__text { font-size: 1rem; }
+}
+
+/* -- Reduced motion --
+   Continuous movement is exactly what this preference exists to switch off,
+   so the track stops and reflows into the static grid it would otherwise
+   have been. The duplicate copy is dropped: it only exists to seam the loop,
+   and with nothing looping it would just print all four steps twice. */
+@media (prefers-reduced-motion: reduce) {
+  .process__marquee {
+    display: block;
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .process__track {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 3.5rem) 2rem;
+    /* min-width must be cleared, not just overridden: the base rule sets it
+       to 100% to make the loop seam, and min-width beats width, so the grid
+       would otherwise stay full-bleed and ignore the gutter below. */
+    min-width: 0;
+    /* Same four declarations as .container, so the steps line up with the
+       heading above them instead of sitting one gutter to its left. */
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    animation: none;
+  }
+
+  .process__track[aria-hidden="true"] { display: none; }
+
+  .step { flex: initial; }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 40rem) {
+  .process__track { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 64rem) {
+  .process__track { grid-template-columns: repeat(4, 1fr); }
+}

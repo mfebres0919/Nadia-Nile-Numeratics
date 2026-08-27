@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nile Numeratics | STEM Education &amp; Advanced Math Tutoring</title>
+  <meta name="description" content="Advanced STEM instruction led by an automotive engineer and HBCU alum. One-to-one tutoring from SAT mathematics through multivariable calculus, physics and engineering math.">
+  <meta name="theme-color" content="#071429">
+  <link rel="canonical" href="https://nilenumeratics.com/">
+  <link rel="icon" href="images/logo-nile-numeratics.png" type="image/png">
+
+
+  <!-- Self-hosted Poppins. These four weights all paint above the fold, so
+       preloading them removes the CSS-parse round trip before the swap. -->
+  <link rel="preload" href="fonts/poppins-v24-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Preload the hero portrait: it is the LCP element on this page. -->
+  <link rel="preload" as="image" href="images/hero-portrait-m.webp" type="image/webp" media="(max-width: 37.5rem)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/hero-portrait.webp" type="image/webp" media="(min-width: 37.5625rem)" fetchpriority="high">
+
+  <!-- Both sheets render above-the-fold content, so both load render-blocking
+       and are kept small. Sheets added for below-fold sections later should be
+       deferred:  media="print" onload="this.media='all'; this.onload=null;" -->
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Preloader gate. This runs before <body> exists, so the curtain is armed
+       on the very first frame the browser paints — no flash of a half-built
+       hero. Everything the preloader shows is gated behind .is-loading, which
+       is set ONLY here: with JavaScript off the class is never added, the
+       curtain never displays and the site renders normally. -->
+  <!-- `js` is separate from `is-loading` because it outlives it: scroll-reveal
+       styles hide their content up front, and must only ever do so when there
+       is a script present to reveal it again. -->
+  <script>document.documentElement.className += " js is-loading";</script>
+
+  <!-- The two rules the curtain cannot afford to wait on: the navy fill (so a
+       slow stylesheet can never flash white) and the fixed positioning. The
+       rest of the preloader lives in css/global.css § 7. -->
+  <style>
+    html.is-loading { background-color: #071429; }
+    html.is-loading body { overflow: hidden; }
+    /* 3000 clears the header (1000), the drawer (1002) and the skip link (2000). */
+    .preloader { position: fixed; inset: 0; z-index: 3000; background-color: #071429; }
+    html:not(.is-loading) .preloader { display: none; }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ==========================================================
+       PRELOADER
+       Logo, wordmark and a 0→100% bar driven by real asset loading
+       (see the progress block at the bottom of <body>).
+       ========================================================== -->
+  <!-- role="progressbar" rather than a live region on purpose: a live region
+       would re-announce the number on every frame. -->
+  <div class="preloader" id="preloader" role="progressbar" aria-label="Loading Nile Numeratics"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="preloader__inner">
+
+      <img class="preloader__logo" src="images/logo-nile-numeratics.png" alt=""
+           width="50" height="50" fetchpriority="high">
+
+      <p class="preloader__name">Nile Numeratics</p>
+      <p class="preloader__tag">STEM Education</p>
+
+      <div class="preloader__meter">
+        <div class="preloader__track">
+          <span class="preloader__fill" id="preloader-fill"></span>
+        </div>
+        <p class="preloader__pct" aria-hidden="true"><span id="preloader-pct">0</span>%</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       HEADER
+       ========================================================== -->
+  <header class="header" id="header">
+
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <p class="topbar__note">Precision in every variable.</p>
+        <div class="topbar__links">
+          <span class="topbar__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m2 7 10 6 10-6"></path>
+            </svg>
+            <a href="mailto:nilenumeratics@gmail.com">nilenumeratics@gmail.com</a>
+          </span>
+          <span class="topbar__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7v5l3 2"></path>
+            </svg>
+            Now booking sessions
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container header__bar">
+
+      <!-- Logo. The 50×50 PNG is a stand-in — swap for an SVG (or a 2x WebP
+           inside a <picture>) as soon as a high-resolution file exists. -->
+      <a class="logo" href="/" aria-label="Nile Numeratics — home">
+        <img class="logo__mark" src="images/logo-nile-numeratics.png" alt="" width="50" height="50" decoding="async" fetchpriority="high">
+        <span class="logo__text">
+          <span class="logo__name">Nile Numeratics</span>
+          <span class="logo__tag">STEM Education</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#hero" aria-current="page">Home</a></li>
+          <li><a class="nav__link" href="#curriculum">Curriculum</a></li>
+          <li><a class="nav__link" href="#founder">Founder</a></li>
+          <li><a class="nav__link" href="#process">Process</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav__cta">
+          <a class="btn btn--gold" href="mailto:nilenumeratics@gmail.com">Book a Session</a>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+  <main id="main">
+
+    <!-- ==========================================================
+         HERO
+         ========================================================== -->
+    <section class="hero on-dark" id="hero">
+      <!-- Decorative geometry: faint circles, squares and triangles drifting
+           on alternating paths. Transform/opacity only, so it stays on the
+           compositor and never touches layout. Frozen by the global
+           prefers-reduced-motion rule. -->
+      <div class="hero__shapes" aria-hidden="true">
+        <svg class="shape shape--1 drift-a" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47"/></svg>
+        <svg class="shape shape--2 drift-b shape--gold" viewBox="0 0 100 100" aria-hidden="true"><rect x="5" y="5" width="90" height="90" rx="5" transform="rotate(14 50 50)"/></svg>
+        <svg class="shape shape--3 drift-a shape--gold" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,5 95,86 5,86"/></svg>
+        <svg class="shape shape--4 drift-b" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47"/></svg>
+        <svg class="shape shape--5 drift-a" viewBox="0 0 100 100" aria-hidden="true"><rect x="5" y="5" width="90" height="90" rx="5" transform="rotate(14 50 50)"/></svg>
+        <svg class="shape shape--6 drift-b" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,5 95,86 5,86"/></svg>
+        <svg class="shape shape--7 drift-a shape--gold" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47"/></svg>
+        <svg class="shape shape--8 drift-b" viewBox="0 0 100 100" aria-hidden="true"><rect x="5" y="5" width="90" height="90" rx="5" transform="rotate(14 50 50)"/></svg>
+      </div>
+
+      <span class="hero__ring hero__ring--1" aria-hidden="true"></span>
+      <span class="hero__ring hero__ring--2" aria-hidden="true"></span>
+
+      <div class="container hero__grid">
+
+        <div class="hero__copy">
+          <p class="kicker rise" style="--delay:.05s">STEM Education &amp; Advanced Mathematics</p>
+
+          <h1 class="hero__title">
+            Mastering the Geometry of
+            <span class="accent">Modern Engineering</span>
+          </h1>
+
+          <p class="hero__lead rise" style="--delay:.15s">
+            Advanced STEM instruction led by an automotive engineer and HBCU alum.
+            From SAT preparation to multivariable calculus, Nile Numeratics bridges
+            classroom theory and real engineering precision.
+          </p>
+
+          <div class="hero__actions rise" style="--delay:.25s">
+            <a class="btn btn--gold" href="#contact">
+              Inquire for Availability
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href="#founder">Founder Credentials</a>
+          </div>
+
+          <p class="hero__note rise" style="--delay:.35s">
+            One-to-one sessions · Algebra I through university engineering mathematics
+          </p>
+        </div>
+
+        <div class="hero__figure rise" style="--delay:.3s">
+
+          <!-- Portrait. Cropped to 5:6 from images/nadia-headshot.png and
+               encoded to WebP with a JPEG fallback. Mobile source is served
+               below 600px so phones never download the desktop crop. -->
+          <div class="hero__media">
+            <picture>
+              <source media="(max-width: 37.5rem)" srcset="images/hero-portrait-m.webp" type="image/webp">
+              <source media="(max-width: 37.5rem)" srcset="images/hero-portrait-m.jpg"  type="image/jpeg">
+              <source srcset="images/hero-portrait.webp" type="image/webp">
+              <img src="images/hero-portrait.jpg"
+                   alt="Nadia, founder of Nile Numeratics"
+                   width="730" height="876"
+                   decoding="async" fetchpriority="high">
+            </picture>
+          </div>
+
+          <div class="hero__card hero__card--1">
+            <span class="hero__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 2 8l10 5 10-5-10-5Z"></path>
+                <path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"></path>
+              </svg>
+            </span>
+            <span class="hero__card-text">
+              <span class="hero__card-title">1:1 Instruction</span>
+              <span class="hero__card-sub">Built around each student</span>
+            </span>
+          </div>
+
+          <div class="hero__card hero__card--2">
+            <span class="hero__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20 20 4"></path><path d="M4 14h6"></path>
+                <path d="M14 4h6v6"></path><path d="M4 20h4"></path>
+              </svg>
+            </span>
+            <span class="hero__card-text">
+              <span class="hero__card-title">SAT &rarr; Multivariable</span>
+              <span class="hero__card-sub">Full mathematics spectrum</span>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Credential marquee. The second track is an exact copy shifted one
+           width along, which is what makes the loop seamless; it is hidden
+           from assistive tech so the list is only announced once. -->
+      <div class="hero__credentials">
+        <div class="marquee" role="group" aria-label="Founder credentials">
+            <ul class="marquee__track">
+              <li class="logo-card logo-card--nasa">
+                <span class="logo-card__label">NASA Research</span>
+                <picture>
+                  <source srcset="images/company_logos/nasa.webp" type="image/webp">
+                  <img src="images/company_logos/nasa.png" alt="NASA"
+                       width="142" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--boeing">
+                <span class="logo-card__label">U.S. Space Force Research</span>
+                <picture>
+                  <source srcset="images/company_logos/boeing.webp" type="image/webp">
+                  <img src="images/company_logos/boeing.png" alt="Boeing"
+                       width="267" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--lsu">
+                <span class="logo-card__label">MBA Candidate</span>
+                <picture>
+                  <source srcset="images/company_logos/lsu.webp" type="image/webp">
+                  <img src="images/company_logos/lsu.png" alt="Louisiana State University"
+                       width="386" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--nasa">
+                <span class="logo-card__label">NASA Research</span>
+                <picture>
+                  <source srcset="images/company_logos/nasa.webp" type="image/webp">
+                  <img src="images/company_logos/nasa.png" alt=""
+                       width="142" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--boeing">
+                <span class="logo-card__label">U.S. Space Force Research</span>
+                <picture>
+                  <source srcset="images/company_logos/boeing.webp" type="image/webp">
+                  <img src="images/company_logos/boeing.png" alt=""
+                       width="267" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--lsu">
+                <span class="logo-card__label">MBA Candidate</span>
+                <picture>
+                  <source srcset="images/company_logos/lsu.webp" type="image/webp">
+                  <img src="images/company_logos/lsu.png" alt=""
+                       width="386" height="120" decoding="async">
+                </picture>
+              </li>
+            </ul>
+            <ul class="marquee__track" aria-hidden="true">
+              <li class="logo-card logo-card--nasa">
+                <span class="logo-card__label">NASA Research</span>
+                <picture>
+                  <source srcset="images/company_logos/nasa.webp" type="image/webp">
+                  <img src="images/company_logos/nasa.png" alt=""
+                       width="142" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--boeing">
+                <span class="logo-card__label">Aerospace Engineering</span>
+                <picture>
+                  <source srcset="images/company_logos/boeing.webp" type="image/webp">
+                  <img src="images/company_logos/boeing.png" alt=""
+                       width="267" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--lsu">
+                <span class="logo-card__label">MBA Candidate</span>
+                <picture>
+                  <source srcset="images/company_logos/lsu.webp" type="image/webp">
+                  <img src="images/company_logos/lsu.png" alt=""
+                       width="386" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--nasa">
+                <span class="logo-card__label">NASA Research</span>
+                <picture>
+                  <source srcset="images/company_logos/nasa.webp" type="image/webp">
+                  <img src="images/company_logos/nasa.png" alt=""
+                       width="142" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--boeing">
+                <span class="logo-card__label">U.S. Space Force Research</span>
+                <picture>
+                  <source srcset="images/company_logos/boeing.webp" type="image/webp">
+                  <img src="images/company_logos/boeing.png" alt=""
+                       width="267" height="120" decoding="async">
+                </picture>
+              </li>
+              <li class="logo-card logo-card--lsu">
+                <span class="logo-card__label">MBA Candidate</span>
+                <picture>
+                  <source srcset="images/company_logos/lsu.webp" type="image/webp">
+                  <img src="images/company_logos/lsu.png" alt=""
+                       width="386" height="120" decoding="async">
+                </picture>
+              </li>
+            </ul>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================
+         CURRICULUM
+         A tablist: one card per track, one panel each. The cards carry the
+         real ARIA tab semantics (roving tabindex, arrow-key movement) which
+         main.js drives; without JS the first panel simply stays open.
+         ========================================================== -->
+    <section class="curriculum" id="curriculum">
+      <div class="container">
+
+        <p class="kicker">Our Curriculum</p>
+        <h2 class="curriculum__title">
+          Every Track, From First Principles
+          <span class="accent">to Engineering</span>
+        </h2>
+
+      <div class="tracks" role="tablist" aria-label="Curriculum tracks">
+        <button class="track is-active" type="button" role="tab"
+                id="tab-sat" aria-controls="panel-sat" aria-selected="true" tabindex="0">
+          <span class="track__face">
+            <span class="track__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle></svg>
+            </span>
+            <span class="track__name">SAT &amp; ACT Mathematics</span>
+          </span>
+        </button>
+        <button class="track" type="button" role="tab"
+                id="tab-algebra" aria-controls="panel-algebra" aria-selected="false" tabindex="-1">
+          <span class="track__face">
+            <span class="track__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5h15L4.5 4.5Z"></path><path d="M4.5 16.5h3v3"></path></svg>
+            </span>
+            <span class="track__name">Algebra &amp; Geometry</span>
+          </span>
+        </button>
+        <button class="track" type="button" role="tab"
+                id="tab-precalculus" aria-controls="panel-precalculus" aria-selected="false" tabindex="-1">
+          <span class="track__face">
+            <span class="track__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12h19" stroke-opacity=".35"></path><path d="M3 12c1.5-7 4.5-7 6 0s4.5 7 6 0 4.5-7 6 0"></path></svg>
+            </span>
+            <span class="track__name">Precalculus &amp; Trigonometry</span>
+          </span>
+        </button>
+        <button class="track" type="button" role="tab"
+                id="tab-calculus" aria-controls="panel-calculus" aria-selected="false" tabindex="-1">
+          <span class="track__face">
+            <span class="track__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20h17"></path><path d="M3.5 20V4.5"></path><path d="M6.5 20c3.2 0 3.4-9 7-9s4.2 5 7.5 5"></path><path d="M10 20v-6.6"></path><path d="M14 20v-8.2"></path><path d="M17.5 20v-6"></path></svg>
+            </span>
+            <span class="track__name">Calculus I&ndash;III</span>
+          </span>
+        </button>
+        <button class="track" type="button" role="tab"
+                id="tab-physics" aria-controls="panel-physics" aria-selected="false" tabindex="-1">
+          <span class="track__face">
+            <span class="track__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.9" fill="currentColor" stroke="none"></circle><ellipse cx="12" cy="12" rx="9.6" ry="4.1"></ellipse><ellipse cx="12" cy="12" rx="9.6" ry="4.1" transform="rotate(60 12 12)"></ellipse><ellipse cx="12" cy="12" rx="9.6" ry="4.1" transform="rotate(120 12 12)"></ellipse></svg>
+            </span>
+            <span class="track__name">Physics &amp; Engineering Math</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="plate" id="panel-sat" role="tabpanel" aria-labelledby="tab-sat" tabindex="0">
+        <div class="plate__body">
+          <h3 class="plate__title">Built for the Question Types That Actually Appear</h3>
+          <p class="plate__lead">Every SAT and ACT mathematics section is assembled from a finite set of question archetypes. We work through each one until the recognition is automatic, then rehearse it under real time pressure.</p>
+          <ul class="plate__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Heart of Algebra</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Problem Solving &amp; Data Analysis</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Passport to Advanced Math</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Geometry &amp; Trigonometry</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Timing &amp; Section Strategy</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Full-Length Diagnostics</span></li>
+          </ul>
+          <a class="btn btn--gold plate__cta" href="#contact">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="plate__media">
+          <img src="images/curriculum/sat-act.svg" alt="A normal distribution curve above a rising bar chart of scores"
+               width="800" height="800" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="plate" id="panel-algebra" role="tabpanel" aria-labelledby="tab-algebra" tabindex="0" hidden>
+        <div class="plate__body">
+          <h3 class="plate__title">The Foundation Every Later Course Rests On</h3>
+          <p class="plate__lead">Most difficulty in calculus traces back to an unfinished idea in algebra. This track closes those gaps first, so the harder material has something solid to stand on.</p>
+          <ul class="plate__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Linear Equations &amp; Inequalities</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Quadratics &amp; Factoring</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Functions &amp; Transformations</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Coordinate Geometry</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Proof &amp; Logical Reasoning</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Systems of Equations</span></li>
+          </ul>
+          <a class="btn btn--gold plate__cta" href="#contact">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="plate__media">
+          <img src="images/curriculum/algebra-geometry.svg" alt="A coordinate plane with a parabola and a right triangle"
+               width="800" height="800" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="plate" id="panel-precalculus" role="tabpanel" aria-labelledby="tab-precalculus" tabindex="0" hidden>
+        <div class="plate__body">
+          <h3 class="plate__title">The Bridge Into Calculus</h3>
+          <p class="plate__lead">Precalculus is where students first meet the language calculus is written in. We build fluency with the unit circle and the core function families until both are second nature.</p>
+          <ul class="plate__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Unit Circle Fluency</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Trigonometric Identities</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Exponentials &amp; Logarithms</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Polynomial &amp; Rational Functions</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Vectors &amp; Polar Coordinates</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Sequences &amp; Series</span></li>
+          </ul>
+          <a class="btn btn--gold plate__cta" href="#contact">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="plate__media">
+          <img src="images/curriculum/precalculus-trig.svg" alt="A unit circle unrolling into a sine wave"
+               width="800" height="800" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="plate" id="panel-calculus" role="tabpanel" aria-labelledby="tab-calculus" tabindex="0" hidden>
+        <div class="plate__body">
+          <h3 class="plate__title">From the First Derivative to Multivariable</h3>
+          <p class="plate__lead">The full sequence, taught the way it is actually used in engineering &mdash; the mechanics of differentiation and integration alongside the reason each theorem exists at all.</p>
+          <ul class="plate__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Limits &amp; Continuity</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Differentiation Techniques</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Applications of the Derivative</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Integration &amp; the FTC</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Partial Derivatives</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Vector Calculus</span></li>
+          </ul>
+          <a class="btn btn--gold plate__cta" href="#contact">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="plate__media">
+          <img src="images/curriculum/calculus.svg" alt="A curve with Riemann sum columns beneath it and a tangent line"
+               width="800" height="800" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="plate" id="panel-physics" role="tabpanel" aria-labelledby="tab-physics" tabindex="0" hidden>
+        <div class="plate__body">
+          <h3 class="plate__title">Where the Mathematics Meets the Machine</h3>
+          <p class="plate__lead">The coursework an engineering degree is built on, taught by someone who has applied it professionally &mdash; from free-body diagrams to the differential equations behind real systems.</p>
+          <ul class="plate__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Kinematics &amp; Newtonian Mechanics</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Statics &amp; Free-Body Diagrams</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Work, Energy &amp; Momentum</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Differential Equations</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Linear Algebra for Engineers</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.4 2.4 4.6-4.8"></path></svg><span>Engineering Problem Framing</span></li>
+          </ul>
+          <a class="btn btn--gold plate__cta" href="#contact">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="plate__media">
+          <img src="images/curriculum/physics-engineering.svg" alt="A projectile arc with force vectors and a gear"
+               width="800" height="800" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PROCESS
+         An endless right-to-left track. The second <ol> is an exact copy of
+         the first offset one width along — that duplicate is what makes the
+         loop seamless — and is hidden from assistive tech so the four steps
+         are only announced once.
+         ========================================================== -->
+    <section class="process" id="process">
+
+      <div class="container">
+        <p class="kicker">Our Process</p>
+        <h2 class="process__title">How We Turn Effort Into Understanding</h2>
+      </div>
+
+      <div class="process__marquee" role="group" aria-label="Our four-step process">
+        <ol class="process__track" role="list">
+          <li class="step">
+            <span class="step__num" aria-hidden="true">01</span>
+            <h3 class="step__title">Diagnostic Session</h3>
+            <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">02</span>
+            <h3 class="step__title">Custom Study Plan</h3>
+            <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">03</span>
+            <h3 class="step__title">One-to-One Sessions</h3>
+            <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">04</span>
+            <h3 class="step__title">Progress Review</h3>
+            <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
+          </li>
+        </ol>
+        <ol class="process__track" role="list" aria-hidden="true">
+          <li class="step">
+            <span class="step__num" aria-hidden="true">01</span>
+            <h3 class="step__title">Diagnostic Session</h3>
+            <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">02</span>
+            <h3 class="step__title">Custom Study Plan</h3>
+            <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">03</span>
+            <h3 class="step__title">One-to-One Sessions</h3>
+            <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">04</span>
+            <h3 class="step__title">Progress Review</h3>
+            <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
+          </li>
+        </ol>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer will go here — its styles belong in css/global.css -->
+
+  <!-- ==========================================================
+       PRELOADER PROGRESS
+       Inline and un-deferred on purpose: the counter has to start the
+       moment the markup above it is parsed, which is earlier than any
+       deferred file would run. It is small enough to stay here.
+       ========================================================== -->
+  <script>
+  (function () {
+    "use strict";
+
+    var root  = document.documentElement;
+    var el    = document.getElementById("preloader");
+    var fill  = document.getElementById("preloader-fill");
+    var pct   = document.getElementById("preloader-pct");
+    if (!el || !fill || !pct) { root.className = root.className.replace(/\bis-loading\b/, ""); return; }
+
+    var MIN_MS  = 2200;   /* Floor, so the climb is watchable even on a warm cache. */
+    var MAX_MS  = 8000;   /* Ceiling: one hung asset must never trap the visitor. */
+    var HOLD_MS = 420;    /* Beat at 100% before the curtain lifts. */
+    var EASE    = 0.075;  /* Lower = lazier glide toward the target. */
+
+    var start    = Date.now();
+    var shown    = 0;     /* What the bar is currently displaying. */
+    var settled  = false;
+    var pageDone = false;
+
+    /* --------------------------------------------------------------
+       Real progress: every <img> on the page plus the window load
+       event, which covers the stylesheets, fonts and this script.
+       -------------------------------------------------------------- */
+    var imgs   = [].slice.call(document.images);
+    var total  = imgs.length + 1;
+    var done   = 0;
+
+    var tally = function () { done++; };
+
+    imgs.forEach(function (img) {
+      if (img.complete) { tally(); return; }
+      img.addEventListener("load",  tally, { once: true });
+      img.addEventListener("error", tally, { once: true });   /* A 404 is still resolved. */
+    });
+
+    window.addEventListener("load", function () { pageDone = true; tally(); });
+
+    /* --------------------------------------------------------------
+       Paint loop. The target is the LOWER of two limits — how much has
+       actually loaded, and how far through MIN_MS we are. Assets pace
+       the bar on a slow connection; the clock paces it on a fast one,
+       which is what stops a warm cache from pinning the bar at 96 and
+       then just waiting out the floor. Capped below 100 either way
+       until the page is genuinely finished.
+       -------------------------------------------------------------- */
+    var tick = function () {
+      var elapsed = Date.now() - start;
+      var real    = (done / total) * 100;
+      var pace    = (elapsed / MIN_MS) * 100;
+      var timeout = elapsed >= MAX_MS;
+      var ready   = (pageDone || timeout) && elapsed >= MIN_MS;
+
+      var target = ready ? 100 : Math.min(real, pace, 96);
+      shown += (target - shown) * EASE;                 /* Ease toward the target. */
+      if (target - shown < 0.4) { shown = target; }     /* Snap out the last sliver. */
+
+      var value = Math.round(shown);
+      fill.style.transform = "scaleX(" + (shown / 100) + ")";
+      pct.textContent = value;
+      el.setAttribute("aria-valuenow", value);
+
+      if (value >= 100 && ready) { reveal(); return; }
+      window.requestAnimationFrame(tick);
+    };
+
+    /* --------------------------------------------------------------
+       Lift the curtain: drop .is-loading so the hero animations that
+       were parked at frame zero start now rather than having played
+       out behind the overlay, then bin the node once it has faded.
+       -------------------------------------------------------------- */
+    function reveal() {
+      if (settled) { return; }
+      settled = true;
+
+      window.setTimeout(function () {
+        el.classList.add("is-done");
+        root.className = root.className.replace(/\bis-loading\b/, "");
+
+        /* Timer rather than transitionend: reduced-motion collapses the
+           transition to ~0ms and the event may never arrive. */
+        window.setTimeout(function () {
+          if (el.parentNode) { el.parentNode.removeChild(el); }
+        }, 900);
+      }, HOLD_MS);
+    }
+
+    window.requestAnimationFrame(tick);
+  }());
+  </script>
+
+  <script defer src="main.js"></script>
+</body>
+</html>
