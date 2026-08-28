@@ -218,6 +218,19 @@
 
     selectTrack = select;
 
+    /* Arriving from another page's footer: ?track=<key>#curriculum opens that
+       panel on load, so a cross-page curriculum link lands on the right track
+       rather than always on the first one. */
+    var wanted = null;
+    try {
+      wanted = new URLSearchParams(window.location.search).get("track");
+    } catch (err) { wanted = null; }
+
+    if (wanted) {
+      var wantedTab = document.getElementById("tab-" + wanted);
+      if (wantedTab) { select(wantedTab, false); }
+    }
+
     tablist.addEventListener("click", function (e) {
       var tab = e.target.closest("[role='tab']");
       if (tab) { select(tab, false); }

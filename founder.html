@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Founder | Nile Numeratics &mdash; Nadia Higgins, Automotive Engineer</title>
+  <meta name="description" content="Nadia Higgins is an automotive engineer, NASA and U.S. Space Force researcher, and founder of Nile Numeratics. Mechanical engineering graduate of Prairie View A&amp;M, magna cum laude.">
+  <meta name="theme-color" content="#071429">
+  <link rel="canonical" href="https://nilenumeratics.com/founder.html">
+  <link rel="icon" href="images/logo-nile-numeratics.png" type="image/png">
+
+  <link rel="preload" href="fonts/poppins-v24-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/poppins-v24-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- The portrait is this page's LCP element. -->
+  <link rel="preload" as="image" href="images/founder/nadia-founder-m.webp" type="image/webp" media="(max-width: 37.5rem)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/founder/nadia-founder.webp" type="image/webp" media="(min-width: 37.5625rem)" fetchpriority="high">
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/founder.css">
+
+  <!-- `js` is separate from `is-loading` because it outlives it: scroll-reveal
+       styles hide their content up front, and must only ever do so when there
+       is a script present to reveal it again.
+
+       `is-loading` is added only once per visit. sessionStorage (not local)
+       is deliberate: the curtain should return for a genuinely new visit, but
+       not when moving between pages of the site. Whichever page is landed on
+       first shows it. Wrapped in try/catch because storage access throws
+       outright in some privacy modes — there, the curtain simply shows. -->
+  <script>
+  (function () {
+    var seen = false;
+    try { seen = window.sessionStorage.getItem("nn-intro") === "1"; } catch (e) { seen = false; }
+    document.documentElement.className += seen ? " js" : " js is-loading";
+  }());
+  </script>
+
+  <style>
+    html.is-loading { background-color: #071429; }
+    html.is-loading body { overflow: hidden; }
+    .preloader { position: fixed; inset: 0; z-index: 3000; background-color: #071429; }
+    html:not(.is-loading) .preloader { display: none; }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ==========================================================
+       PRELOADER
+       Logo, wordmark and a 0→100% bar driven by real asset loading
+       (see the progress block at the bottom of <body>).
+       ========================================================== -->
+  <!-- role="progressbar" rather than a live region on purpose: a live region
+       would re-announce the number on every frame. -->
+  <div class="preloader" id="preloader" role="progressbar" aria-label="Loading Nile Numeratics"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="preloader__inner">
+
+      <img class="preloader__logo" src="images/logo-nile-numeratics.png" alt=""
+           width="50" height="50" fetchpriority="high">
+
+      <p class="preloader__name">Nile Numeratics</p>
+      <p class="preloader__tag">STEM Education</p>
+
+      <div class="preloader__meter">
+        <div class="preloader__track">
+          <span class="preloader__fill" id="preloader-fill"></span>
+        </div>
+        <p class="preloader__pct" aria-hidden="true"><span id="preloader-pct">0</span>%</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       HEADER
+       ========================================================== -->
+  <header class="header" id="header">
+
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <p class="topbar__note">Precision in every variable.</p>
+        <div class="topbar__links">
+          <span class="topbar__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m2 7 10 6 10-6"></path>
+            </svg>
+            <a href="mailto:nilenumeratics@gmail.com">nilenumeratics@gmail.com</a>
+          </span>
+          <span class="topbar__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7v5l3 2"></path>
+            </svg>
+            Now booking sessions
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container header__bar">
+
+      <!-- Logo. The 50×50 PNG is a stand-in — swap for an SVG (or a 2x WebP
+           inside a <picture>) as soon as a high-resolution file exists. -->
+      <a class="logo" href="index.html" aria-label="Nile Numeratics — home">
+        <img class="logo__mark" src="images/logo-nile-numeratics.png" alt="" width="50" height="50" decoding="async" fetchpriority="high">
+        <span class="logo__text">
+          <span class="logo__name">Nile Numeratics</span>
+          <span class="logo__tag">STEM Education</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html#hero">Home</a></li>
+          <li><a class="nav__link" href="index.html#curriculum">Curriculum</a></li>
+          <li><a class="nav__link" href="founder.html" aria-current="page">Founder</a></li>
+          <li><a class="nav__link" href="index.html#process">Process</a></li>
+          <li><a class="nav__link" href="index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav__cta">
+          <a class="btn btn--gold" href="mailto:nilenumeratics@gmail.com">Book a Session</a>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+  <main id="main">
+
+    <!-- ==========================================================
+         FOUNDER HERO
+         Portrait left, biography right. Every claim in the badges below is
+         drawn from Nadia's own CV — see the note in css/founder.css.
+         ========================================================== -->
+    <section class="fhero" id="founder">
+      <div class="container fhero__grid">
+
+        <div class="fhero__media">
+          <picture>
+            <source media="(max-width: 37.5rem)" srcset="images/founder/nadia-founder-m.webp" type="image/webp">
+            <source media="(max-width: 37.5rem)" srcset="images/founder/nadia-founder-m.jpg"  type="image/jpeg">
+            <source srcset="images/founder/nadia-founder.webp" type="image/webp">
+            <img src="images/founder/nadia-founder.jpg"
+                 alt="Nadia Higgins, founder of Nile Numeratics"
+                 width="900" height="1200" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+
+        <div class="fhero__copy">
+          <p class="kicker">The Founder</p>
+
+          <h1 class="fhero__title">Meet <span class="accent">Nadia Higgins</span></h1>
+
+          <p class="fhero__lead">
+            Nadia Higgins is an engineer and researcher focused on intelligent
+            mobility, autonomous systems, and human-centered engineering
+            innovation. She is an Automotive Engineer for a leading global
+            automaker, an MBA candidate at Louisiana State University
+            Shreveport, and a graduate of Prairie View A&amp;M University, where
+            she earned a B.S. in Mechanical Engineering, magna cum laude.
+          </p>
+
+          <p class="fhero__lead">
+            She founded Nile Numeratics to bring the same precision and
+            analytical rigor she applies to aerospace and automotive
+            engineering into the classroom &mdash; increasing access to
+            hands-on STEM experiences for the next generation of
+            problem-solvers.
+          </p>
+
+          <ul class="fhero__badges" role="list">
+            <li class="badge">
+              <span class="badge__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 13.4 4.8 8.6A2.1 2.1 0 0 1 6.8 7.2h10.4a2.1 2.1 0 0 1 2 1.4l1.6 4.8"></path><path d="M3.2 13.4h17.6v3.9a1 1 0 0 1-1 1h-1.6a1 1 0 0 1-1-1v-1H6.8v1a1 1 0 0 1-1 1H4.2a1 1 0 0 1-1-1Z"></path><circle cx="7.2" cy="15.6" r=".85" fill="currentColor" stroke="none"></circle><circle cx="16.8" cy="15.6" r=".85" fill="currentColor" stroke="none"></circle></svg>
+              </span>
+              <span class="badge__text">
+                <span class="badge__title">Automotive Engineer</span>
+                <span class="badge__sub">Leading global automaker</span>
+              </span>
+            </li>
+            <li class="badge">
+              <span class="badge__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2 2 0 0 0-2.9-.1Z"></path><path d="M12 15 9 12a11 11 0 0 1 2-6.3C13.1 2.8 16.4 2 19.5 2c0 3.1-.8 6.4-3.7 8.5A11 11 0 0 1 12 15Z"></path><path d="M9 12H5s.4-2.4 1.6-3.2C7.9 7.9 9 8 9 8"></path><path d="M12 15v4s2.4-.4 3.2-1.6c.9-1.3.8-2.4.8-2.4"></path></svg>
+              </span>
+              <span class="badge__text">
+                <span class="badge__title">NASA &amp; Space Force</span>
+                <span class="badge__sub">Undergraduate research assistant</span>
+              </span>
+            </li>
+            <li class="badge">
+              <span class="badge__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"></path><path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"></path></svg>
+              </span>
+              <span class="badge__text">
+                <span class="badge__title">Magna Cum Laude</span>
+                <span class="badge__sub">B.S. Mechanical Engineering</span>
+              </span>
+            </li>
+            <li class="badge">
+              <span class="badge__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <span class="badge__text">
+                <span class="badge__title">30+ Students Taught</span>
+                <span class="badge__sub">SAT Math performance up 20%</span>
+              </span>
+            </li>
+          </ul>
+
+          <p class="fhero__callout">
+            The same rigor that ships vehicles and spacecraft, brought to a
+            student&rsquo;s desk &mdash; precision in every variable.
+          </p>
+
+          <a class="btn btn--gold fhero__cta" href="#mission">
+            Our Mission
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         MISSION
+         Three pillars, centred. The reference layout this follows puts big
+         headline numbers here; Nile Numeratics launched in 2026 and has no
+         such figures, so the pillars carry the cards instead. Do not swap in
+         invented counts.
+         ========================================================== -->
+    <section class="mission" id="mission">
+      <div class="container">
+
+        <div class="mission__head">
+          <p class="kicker kicker--center">Our Mission</p>
+          <h2 class="mission__title">Three Commitments to Every Student</h2>
+        </div>
+
+        <ul class="mission__grid" role="list">
+          <li class="pillar">
+            <span class="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14"></path><path d="M2 20h3"></path><path d="M13 20h9"></path><path d="M10 12v.01"></path><path d="M13 4.8v14.4a.8.8 0 0 1-1 .77l-6-1.5A1 1 0 0 1 5 17.5V6.5a1 1 0 0 1 1-1l6-1.5a.8.8 0 0 1 1 .77Z"></path></svg>
+            </span>
+            <h3 class="pillar__title">Access</h3>
+            <p class="pillar__text">Make rigorous, hands-on STEM learning available to students who have never been given a seat at the table.</p>
+          </li>
+          <li class="pillar">
+            <span class="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.8.8 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+            </span>
+            <h3 class="pillar__title">Mastery</h3>
+            <p class="pillar__text">Replace memorization with genuine understanding, so students can reason their way through unfamiliar problems.</p>
+          </li>
+          <li class="pillar">
+            <span class="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>
+            </span>
+            <h3 class="pillar__title">Pathways</h3>
+            <p class="pillar__text">Connect mathematics to real life, showing students exactly where the work leads.</p>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         EXPERIENCE &AMP; EDUCATION
+         ========================================================== -->
+    <section class="timeline timeline--deep" id="experience">
+      <div class="container">
+        <h2 class="timeline__title">Experience &amp; Education</h2>
+        <div class="timeline__cols">
+          <div class="tl__col">
+            <h3 class="tl__heading">Engineering Experience</h3>
+            <ol class="tl" role="list">
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2"></rect><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"></path><path d="M2.5 12h19"></path></svg>
+              </span>
+              <p class="tl__date">2026 &ndash; Present</p>
+              <h4 class="tl__role">Chassis Engineer, Quality <span class="tl__org">&mdash; Toyota Motor Company</span></h4>
+              <p class="tl__desc">Analyzes field performance data and leads cross-functional investigations with international suppliers to resolve chassis quality concerns.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2"></rect><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"></path><path d="M2.5 12h19"></path></svg>
+              </span>
+              <p class="tl__date">2026</p>
+              <h4 class="tl__role">Automotive Technology Engineer, Quality <span class="tl__org">&mdash; Toyota Motor Company</span></h4>
+              <p class="tl__desc">Evaluated end-to-end software readiness for over-the-air updates and prioritized top customer issues across vehicle models.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2"></rect><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"></path><path d="M2.5 12h19"></path></svg>
+              </span>
+              <p class="tl__date">2025 &ndash; 2026</p>
+              <h4 class="tl__role">Electrical Engineer, Quality <span class="tl__org">&mdash; Toyota Motor Company</span></h4>
+              <p class="tl__desc">Led root cause analysis across DCM, alternator, HVAC, ADAS and battery failures, and automated Toyota&rsquo;s battery recovery process.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2"></rect><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"></path><path d="M2.5 12h19"></path></svg>
+              </span>
+              <p class="tl__date">2024</p>
+              <h4 class="tl__role">Industrial Engineering Intern, Air Force One <span class="tl__org">&mdash; Boeing</span></h4>
+              <p class="tl__desc">Coordinated airplane stringer integration, ensuring compliance with structural and safety standards.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2"></rect><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"></path><path d="M2.5 12h19"></path></svg>
+              </span>
+              <p class="tl__date">2023</p>
+              <h4 class="tl__role">Body Weld Production Engineering Intern <span class="tl__org">&mdash; Toyota Motor Company</span></h4>
+              <p class="tl__desc">Mapped emergency response sources on a production line and designed a 3D-printed robot safety flag to protect team members.</p>
+            </li>
+            </ol>
+          </div>
+          <div class="tl__col">
+            <h3 class="tl__heading">Education</h3>
+            <ol class="tl" role="list">
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"></path><path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"></path></svg>
+              </span>
+              <p class="tl__date">May 2027</p>
+              <h4 class="tl__role">Master of Business Administration <span class="tl__org">&mdash; Louisiana State University Shreveport</span></h4>
+              <p class="tl__desc">Concentration in Entrepreneurship and Family Enterprise.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"></path><path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"></path></svg>
+              </span>
+              <p class="tl__date">May 2025</p>
+              <h4 class="tl__role">B.S. Mechanical Engineering <span class="tl__org">&mdash; Prairie View A&amp;M University</span></h4>
+              <p class="tl__desc">Graduated magna cum laude.</p>
+            </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         RESEARCH &AMP; LEADERSHIP
+         ========================================================== -->
+    <section class="timeline timeline--mid" id="research">
+      <div class="container">
+        <h2 class="timeline__title">Research &amp; Leadership</h2>
+        <div class="timeline__cols">
+          <div class="tl__col">
+            <h3 class="tl__heading">Research &amp; Projects</h3>
+            <ol class="tl" role="list">
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v5.6L4.7 17a2 2 0 0 0 1.7 3h11.2a2 2 0 0 0 1.7-3l-4.8-8.4V3"></path><path d="M8.5 3h7"></path><path d="M7 14h10"></path></svg>
+              </span>
+              <p class="tl__date">2025</p>
+              <h4 class="tl__role">Undergraduate Research Assistant <span class="tl__org">&mdash; U.S. Space Force</span></h4>
+              <p class="tl__desc">Designed and simulated radiation technologies for space defense applications using Python and RoboDK.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v5.6L4.7 17a2 2 0 0 0 1.7 3h11.2a2 2 0 0 0 1.7-3l-4.8-8.4V3"></path><path d="M8.5 3h7"></path><path d="M7 14h10"></path></svg>
+              </span>
+              <p class="tl__date">2024 &ndash; 2025</p>
+              <h4 class="tl__role">Deployable Sunshade for a Space-Based Telescope <span class="tl__org">&mdash; Senior Capstone</span></h4>
+              <p class="tl__desc">Designed a deployable sunshade optimizing thermal protection for a space telescope.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v5.6L4.7 17a2 2 0 0 0 1.7 3h11.2a2 2 0 0 0 1.7-3l-4.8-8.4V3"></path><path d="M8.5 3h7"></path><path d="M7 14h10"></path></svg>
+              </span>
+              <p class="tl__date">2023 &ndash; 2024</p>
+              <h4 class="tl__role">Undergraduate Research Assistant <span class="tl__org">&mdash; NASA</span></h4>
+              <p class="tl__desc">Researched a drop tower to simulate weightlessness and study high-pressure fuel combustion without gravity interference.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v5.6L4.7 17a2 2 0 0 0 1.7 3h11.2a2 2 0 0 0 1.7-3l-4.8-8.4V3"></path><path d="M8.5 3h7"></path><path d="M7 14h10"></path></svg>
+              </span>
+              <p class="tl__date">2025</p>
+              <h4 class="tl__role">Thermal Management Heat Sink Design <span class="tl__org">&mdash; ANSYS Simulation</span></h4>
+              <p class="tl__desc">Simulated aluminum and copper heat sink concepts to optimize cooling, weight and cost.</p>
+            </li>
+            </ol>
+          </div>
+          <div class="tl__col">
+            <h3 class="tl__heading">Leadership &amp; STEM Impact</h3>
+            <ol class="tl" role="list">
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2026 &ndash; Present</p>
+              <h4 class="tl__role">Founder <span class="tl__org">&mdash; Nile Numeratics</span></h4>
+              <p class="tl__desc">Founded a STEM education and tutoring business improving students&rsquo; mathematics and science proficiency through personalized instruction.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2020 &ndash; Present</p>
+              <h4 class="tl__role">STEM Tutor &amp; Academic Coach <span class="tl__org">&mdash; Independent</span></h4>
+              <p class="tl__desc">Taught 30+ high school and college students in differential equations, linear algebra, numerical methods, statistics, dynamics and multivariable calculus &mdash; raising SAT Math performance by 20%.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2026 &ndash; Present</p>
+              <h4 class="tl__role">Engineering Education Partner <span class="tl__org">&mdash; Lancaster ISD</span></h4>
+              <p class="tl__desc">Delivers recurring engineering workshops introducing students to design thinking, mechanical systems and STEM career pathways.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2026</p>
+              <h4 class="tl__role">AI Innovation Challenge Coach <span class="tl__org">&mdash; Toyota</span></h4>
+              <p class="tl__desc">Coached a student team to a first-place finish, earning each student a $75,000 scholarship and a guaranteed Toyota internship.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2023 &ndash; 2026</p>
+              <h4 class="tl__role">TEDx Speaker &mdash; &ldquo;Solving for X&rdquo; <span class="tl__org">&mdash; TEDx</span></h4>
+              <p class="tl__desc">Presented a problem-solving framework for turning ideas and aspirations into actionable goals and real-world impact.</p>
+            </li>
+            <li class="tl__item">
+              <span class="tl__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"></path><circle cx="9" cy="7.4" r="3.4"></circle><path d="M22 20v-1.6a4 4 0 0 0-3-3.9"></path><path d="M16.5 4.2a4 4 0 0 1 0 7.7"></path></svg>
+              </span>
+              <p class="tl__date">2023 &ndash; 2025</p>
+              <h4 class="tl__role">Founder <span class="tl__org">&mdash; PVAMU VROOOM</span></h4>
+              <p class="tl__desc">Founded an automotive STEM program for Pre-K through college students and established the first student-led automotive garage at Prairie View A&amp;M.</p>
+            </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         HONORS & CERTIFICATIONS
+         ========================================================== -->
+    <section class="awards" id="honors">
+      <div class="container">
+        <div class="awards__cols">
+
+          <div class="awards__col">
+            <h2 class="awards__heading">Honors</h2>
+            <ul class="award__list" role="list">
+              <li class="award"><span class="award__name">Miss National Association of African American Honors Programs</span><span class="award__year">2024</span></li>
+              <li class="award"><span class="award__name">HBCU White House Scholar</span><span class="award__year">2024</span></li>
+              <li class="award"><span class="award__name">Brooke Owens Aerospace Fellowship</span><span class="award__year">2024</span></li>
+              <li class="award"><span class="award__name">Economic Wealth Chairman, Alpha Kappa Alpha Sorority, Inc.</span><span class="award__year">2024</span></li>
+            </ul>
+          </div>
+
+          <div class="awards__col">
+            <h2 class="awards__heading">Certifications</h2>
+            <ul class="award__list" role="list">
+              <li class="award"><span class="award__name">Machine Learning Specialization</span><span class="award__year">2026</span></li>
+              <li class="award"><span class="award__name">Electric Vehicle Training (Electrification 101)</span><span class="award__year">2026</span></li>
+              <li class="award"><span class="award__name">Excel Basics for Data Analysis</span><span class="award__year">2025</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="tools">
+          <h3 class="tools__heading">Tools</h3>
+          <ul class="tools__list" role="list">
+            <li class="tools__chip">MATLAB</li>
+            <li class="tools__chip">Python</li>
+            <li class="tools__chip">C++</li>
+            <li class="tools__chip">AutoCAD</li>
+            <li class="tools__chip">CATIA</li>
+            <li class="tools__chip">NX</li>
+            <li class="tools__chip">SolidWorks</li>
+            <li class="tools__chip">ANSYS</li>
+            <li class="tools__chip">Power BI</li>
+            <li class="tools__chip">Power Automate</li>
+            <li class="tools__chip">Microsoft Suite</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER
+       Site-wide, so every rule for it lives in css/global.css section 8.
+       ========================================================== -->
+  <footer class="footer on-dark">
+    <div class="container footer__grid">
+
+      <div class="footer__brand">
+        <a class="logo" href="index.html" aria-label="Nile Numeratics — home">
+          <img class="logo__mark" src="images/logo-nile-numeratics.png" alt=""
+               width="50" height="50" loading="lazy" decoding="async">
+          <span class="logo__text">
+            <span class="logo__name">Nile Numeratics</span>
+            <span class="logo__tag">STEM Education</span>
+          </span>
+        </a>
+
+        <p class="footer__blurb">
+          Advanced STEM instruction led by an automotive engineer and HBCU alum
+          &mdash; from SAT preparation through multivariable calculus and
+          engineering mathematics.
+        </p>
+      </div>
+
+      <nav class="footer__col" aria-labelledby="footer-explore">
+        <h2 class="footer__heading" id="footer-explore">Explore</h2>
+        <ul class="footer__list" role="list">
+            <li><a class="footer__link" href="index.html#hero">Home</a></li>
+            <li><a class="footer__link" href="index.html#curriculum">Curriculum</a></li>
+            <li><a class="footer__link" href="founder.html" aria-current="page">Founder</a></li>
+            <li><a class="footer__link" href="index.html#process">Process</a></li>
+            <li><a class="footer__link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-labelledby="footer-curriculum">
+        <h2 class="footer__heading" id="footer-curriculum">Curriculum</h2>
+        <ul class="footer__list" role="list">
+            <li><a class="footer__link" href="index.html?track=sat#curriculum">SAT &amp; ACT Mathematics</a></li>
+            <li><a class="footer__link" href="index.html?track=algebra#curriculum">Algebra &amp; Geometry</a></li>
+            <li><a class="footer__link" href="index.html?track=precalculus#curriculum">Precalculus &amp; Trigonometry</a></li>
+            <li><a class="footer__link" href="index.html?track=calculus#curriculum">Calculus I&ndash;III</a></li>
+            <li><a class="footer__link" href="index.html?track=physics#curriculum">Physics &amp; Engineering Mathematics</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2 class="footer__heading">Get in touch</h2>
+
+        <p class="footer__contact">
+          <span class="footer__contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m2 7 10 6 10-6"></path>
+            </svg>
+          </span>
+          <a class="footer__link" href="mailto:nilenumeratics@gmail.com">nilenumeratics@<wbr>gmail.com</a>
+        </p>
+
+        <p class="footer__contact">
+          <span class="footer__contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>
+            </svg>
+          </span>
+          Now booking sessions
+        </p>
+
+        <a class="btn btn--gold footer__cta" href="index.html#contact">
+          Book a Session
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <div class="container footer__bar-inner">
+        <!-- The year is filled in by main.js; the literal below is the
+             fallback that shows when the script has not run. -->
+        <p class="footer__fine">
+          &copy; <span id="footer-year">2026</span> Nile Numeratics. All rights reserved.
+        </p>
+        <p class="footer__fine footer__fine--motto">Precision in every variable.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================
+       BACK TO TOP
+       Hidden until the page has scrolled a screen or so; main.js toggles
+       .is-visible. It is a real <button>, so it is reachable by keyboard
+       and announced properly.
+       ========================================================== -->
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path>
+    </svg>
+  </button>
+
+  <!-- ==========================================================
+       PRELOADER PROGRESS
+       Inline and un-deferred on purpose: the counter has to start the
+       moment the markup above it is parsed, which is earlier than any
+       deferred file would run. It is small enough to stay here.
+       ========================================================== -->
+  <script>
+  (function () {
+    "use strict";
+
+    var root  = document.documentElement;
+    var el    = document.getElementById("preloader");
+    var fill  = document.getElementById("preloader-fill");
+    var pct   = document.getElementById("preloader-pct");
+    if (!el || !fill || !pct) { root.className = root.className.replace(/\bis-loading\b/, ""); return; }
+
+    /* Curtain not armed this visit — drop the markup and do nothing else. */
+    if (!/\bis-loading\b/.test(root.className)) {
+      if (el.parentNode) { el.parentNode.removeChild(el); }
+      return;
+    }
+
+    var MIN_MS  = 2200;   /* Floor, so the climb is watchable even on a warm cache. */
+    var MAX_MS  = 8000;   /* Ceiling: one hung asset must never trap the visitor. */
+    var HOLD_MS = 420;    /* Beat at 100% before the curtain lifts. */
+    var EASE    = 0.075;  /* Lower = lazier glide toward the target. */
+
+    var start    = Date.now();
+    var shown    = 0;     /* What the bar is currently displaying. */
+    var settled  = false;
+    var pageDone = false;
+
+    /* --------------------------------------------------------------
+       Real progress: every <img> on the page plus the window load
+       event, which covers the stylesheets, fonts and this script.
+       -------------------------------------------------------------- */
+    var imgs   = [].slice.call(document.images);
+    var total  = imgs.length + 1;
+    var done   = 0;
+
+    var tally = function () { done++; };
+
+    imgs.forEach(function (img) {
+      if (img.complete) { tally(); return; }
+      img.addEventListener("load",  tally, { once: true });
+      img.addEventListener("error", tally, { once: true });   /* A 404 is still resolved. */
+    });
+
+    window.addEventListener("load", function () { pageDone = true; tally(); });
+
+    /* --------------------------------------------------------------
+       Paint loop. The target is the LOWER of two limits — how much has
+       actually loaded, and how far through MIN_MS we are. Assets pace
+       the bar on a slow connection; the clock paces it on a fast one,
+       which is what stops a warm cache from pinning the bar at 96 and
+       then just waiting out the floor. Capped below 100 either way
+       until the page is genuinely finished.
+       -------------------------------------------------------------- */
+    var tick = function () {
+      var elapsed = Date.now() - start;
+      var real    = (done / total) * 100;
+      var pace    = (elapsed / MIN_MS) * 100;
+      var timeout = elapsed >= MAX_MS;
+      var ready   = (pageDone || timeout) && elapsed >= MIN_MS;
+
+      var target = ready ? 100 : Math.min(real, pace, 96);
+      shown += (target - shown) * EASE;                 /* Ease toward the target. */
+      if (target - shown < 0.4) { shown = target; }     /* Snap out the last sliver. */
+
+      var value = Math.round(shown);
+      fill.style.transform = "scaleX(" + (shown / 100) + ")";
+      pct.textContent = value;
+      el.setAttribute("aria-valuenow", value);
+
+      if (value >= 100 && ready) { reveal(); return; }
+      window.requestAnimationFrame(tick);
+    };
+
+    /* --------------------------------------------------------------
+       Lift the curtain: drop .is-loading so the hero animations that
+       were parked at frame zero start now rather than having played
+       out behind the overlay, then bin the node once it has faded.
+       -------------------------------------------------------------- */
+    function reveal() {
+      if (settled) { return; }
+      settled = true;
+
+      window.setTimeout(function () {
+        el.classList.add("is-done");
+        root.className = root.className.replace(/\bis-loading\b/, "");
+
+        /* Remember it ran, so the rest of the visit skips it. */
+        try { window.sessionStorage.setItem("nn-intro", "1"); } catch (err) {}
+
+        /* Timer rather than transitionend: reduced-motion collapses the
+           transition to ~0ms and the event may never arrive. */
+        window.setTimeout(function () {
+          if (el.parentNode) { el.parentNode.removeChild(el); }
+        }, 900);
+      }, HOLD_MS);
+    }
+
+    window.requestAnimationFrame(tick);
+  }());
+  </script>
+
+  <script defer src="main.js"></script>
+</body>
+</html>
