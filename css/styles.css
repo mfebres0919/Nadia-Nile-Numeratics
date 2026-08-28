@@ -405,11 +405,6 @@
    2px inside it by padding. That is what produces an outline which follows
    the notch — a real border cannot, because clip-path cuts borders away.
    -------------------------------------------------------------------------- */
-/* Height of the wave divider below. Declared here rather than on .curriculum
-   because the process section has to reserve the same amount of top padding,
-   and a custom property set on a sibling would not reach it. */
-:root { --divider-h: clamp(2.5rem, 6vw, 6.25rem); }
-
 .curriculum {
   position: relative;        /* Anchor for the divider hanging below it. */
   padding-block: var(--section-y);

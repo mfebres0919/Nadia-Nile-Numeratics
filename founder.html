@@ -123,7 +123,16 @@
         <ul class="nav__list">
           <li><a class="nav__link" href="index.html#hero">Home</a></li>
           <li><a class="nav__link" href="index.html#curriculum">Curriculum</a></li>
-          <li><a class="nav__link" href="founder.html" aria-current="page">Founder</a></li>
+          <li class="nav__item nav__item--sub">
+            <a class="nav__link" href="founder.html" aria-current="page" aria-haspopup="true">Founder</a>
+            <ul class="subnav" role="list">
+              <li><a class="subnav__link" href="#founder">The Founder</a></li>
+              <li><a class="subnav__link" href="#mission">Our Mission</a></li>
+              <li><a class="subnav__link" href="#experience">Experience &amp; Education</a></li>
+              <li><a class="subnav__link" href="#research">Research &amp; Leadership</a></li>
+              <li><a class="subnav__link" href="#honors">Honors &amp; Certifications</a></li>
+            </ul>
+          </li>
           <li><a class="nav__link" href="index.html#process">Process</a></li>
           <li><a class="nav__link" href="index.html#contact">Contact</a></li>
         </ul>
@@ -288,7 +297,7 @@
     <!-- ==========================================================
          EXPERIENCE &AMP; EDUCATION
          ========================================================== -->
-    <section class="timeline timeline--deep" id="experience">
+    <section class="timeline timeline--deep" id="experience" data-wave>
       <div class="container">
         <h2 class="timeline__title">Experience &amp; Education</h2>
         <div class="timeline__cols">
@@ -372,7 +381,7 @@
     <!-- ==========================================================
          RESEARCH &AMP; LEADERSHIP
          ========================================================== -->
-    <section class="timeline timeline--mid" id="research">
+    <section class="timeline timeline--mid" id="research" data-wave>
       <div class="container">
         <h2 class="timeline__title">Research &amp; Leadership</h2>
         <div class="timeline__cols">
@@ -483,7 +492,7 @@
     <!-- ==========================================================
          HONORS & CERTIFICATIONS
          ========================================================== -->
-    <section class="awards" id="honors">
+    <section class="awards" id="honors" data-wave>
       <div class="container">
         <div class="awards__cols">
 

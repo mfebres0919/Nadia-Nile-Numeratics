@@ -138,7 +138,18 @@
         <ul class="nav__list">
           <li><a class="nav__link" href="#hero">Home</a></li>
           <li><a class="nav__link" href="#curriculum">Curriculum</a></li>
-          <li><a class="nav__link" href="founder.html">Founder</a></li>
+          <!-- Submenu of the founder page's sections. The parent stays a real
+               link, so it still works without hover, script, or a pointer. -->
+          <li class="nav__item nav__item--sub">
+            <a class="nav__link" href="founder.html" aria-haspopup="true">Founder</a>
+            <ul class="subnav" role="list">
+              <li><a class="subnav__link" href="founder.html#founder">The Founder</a></li>
+              <li><a class="subnav__link" href="founder.html#mission">Our Mission</a></li>
+              <li><a class="subnav__link" href="founder.html#experience">Experience &amp; Education</a></li>
+              <li><a class="subnav__link" href="founder.html#research">Research &amp; Leadership</a></li>
+              <li><a class="subnav__link" href="founder.html#honors">Honors &amp; Certifications</a></li>
+            </ul>
+          </li>
           <li><a class="nav__link" href="#process">Process</a></li>
           <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>

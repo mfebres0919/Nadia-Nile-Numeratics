@@ -121,6 +121,10 @@
   --shadow-md: 0 10px 30px -12px rgba(7, 20, 41, 0.28);
   --shadow-lg: 0 28px 60px -24px rgba(7, 20, 41, 0.45);
 
+  /* Height of the wave divider. Shared: the home page hangs one below the
+     curriculum section, the founder page puts one above three sections. */
+  --divider-h: clamp(2.5rem, 6vw, 6.25rem);
+
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 0.2s var(--ease);
   --t-base: 0.32s var(--ease);
@@ -566,7 +570,89 @@ p { text-wrap: pretty; }
   .nav__link:hover::after, .nav__link[aria-current]::after { transform: scaleX(1); }
 
   .nav__cta .btn { min-height: 2.875rem; padding: 0.75rem 1.5rem; font-size: 0.75rem; }
+
+  /* -- Founder drop-down --
+     Opens on hover and on focus-within, so it is reachable by keyboard as
+     well as pointer. visibility is animated alongside opacity: without it
+     the panel stays in the tab order while invisible, and a keyboard user
+     lands on links they cannot see. */
+  .nav__item--sub { position: relative; }
+
+  /* Invisible bridge across the header padding. Without it the pointer
+     leaves the link before it reaches the panel and the menu snaps shut. */
+  .nav__item--sub::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 1.25rem;
+  }
+
+  .subnav {
+    position: absolute;
+    top: calc(100% + 1.125rem);
+    left: 50%;
+    z-index: 10;
+    display: block;
+    width: max-content;
+    min-width: 14rem;
+    margin-top: 0;
+    padding: 0.625rem;
+    background-color: var(--white);
+    border: 1px solid var(--hairline);
+    border-left: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -0.625rem);
+    /* Deliberately unhurried — the brief asked for a slow drop. */
+    transition: opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                visibility 0.4s var(--ease);
+  }
+
+  .nav__item--sub:hover .subnav,
+  .nav__item--sub:focus-within .subnav {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  .subnav__link {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    transition: color var(--t-fast), background-color var(--t-fast);
+  }
+
+  .subnav__link:hover { background-color: var(--stone); }
 }
+
+/* -- Founder submenu ------------------------------------------------------
+   In the mobile drawer this is simply a nested, indented list: there is no
+   hover on touch, so hiding it behind one would put the links out of reach.
+   The desktop block further down turns it into the drop-down. */
+.subnav {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  padding-left: 0.875rem;
+  border-left: 1px solid var(--hairline);
+}
+
+.subnav__link {
+  display: block;
+  padding-block: 0.3125rem;
+  font-size: 0.9375rem;
+  color: var(--body);
+  transition: color var(--t-fast);
+}
+
+.subnav__link:hover,
+.subnav__link[aria-current] { color: var(--gold-700); }
 
 /* --------------------------------------------------------------------------
    7. PRELOADER  (site-wide — the first-paint curtain)
@@ -715,7 +801,45 @@ html.is-loading .marquee__track { animation-play-state: paused; }
 @media print { .to-top { display: none; } }
 
 /* --------------------------------------------------------------------------
-   9. FOOTER  (site-wide — lives here, never in a page stylesheet)
+   9. WAVE DIVIDER  (site-wide)
+
+   Sits ABOVE a section and overlaps the one before it, painted in the
+   section's own colour so the two appear to interlock.
+
+   Two decisions worth keeping:
+   - mask-image, not background-image. The shape is one asset recoloured per
+     section through background-color; as a background it would need a
+     separately encoded copy of the SVG for every colour. The per-path
+     opacity in the artwork becomes mask alpha, so the layered translucent
+     bands still read.
+   - scaleY(-1). The source artwork is solid along the top with a wavy
+     underside, which is what a divider hanging BELOW a section needs.
+     Flipping it gives the wavy top edge and solid base a top divider needs.
+   -------------------------------------------------------------------------- */
+[data-wave] { position: relative; }
+
+[data-wave]::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;              /* Hangs above its own section. */
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: var(--divider-h);
+  pointer-events: none;
+  transform: scaleY(-1);
+  background-color: var(--wave-color, var(--cream));
+
+  -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><g fill="%23000"><path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path><path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path><path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path><path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path></g></svg>');
+  mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><g fill="%23000"><path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path><path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path><path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path><path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path></g></svg>');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   10. FOOTER  (site-wide — lives here, never in a page stylesheet)
    -------------------------------------------------------------------------- */
 .footer {
   background-color: var(--navy-900);
@@ -828,7 +952,7 @@ html.is-loading .marquee__track { animation-play-state: paused; }
 }
 
 /* --------------------------------------------------------------------------
-   10. MOTION PREFERENCES
+   11. MOTION PREFERENCES
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

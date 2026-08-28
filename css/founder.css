@@ -274,9 +274,18 @@
    -------------------------------------------------------------------------- */
 .timeline { padding-block: var(--section-y); }
 
-/* Two shades so consecutive dark sections stay distinguishable. */
-.timeline--deep { background-color: var(--navy-900); }
-.timeline--mid  { background-color: var(--navy-800); }
+/* Two shades so consecutive dark sections stay distinguishable. Each also
+   sets --wave-color, which is what tints the divider hanging above it — the
+   divider must match its own section, not the one it overlaps. */
+.timeline--deep {
+  background-color: var(--navy-900);
+  --wave-color: var(--navy-900);
+}
+
+.timeline--mid {
+  background-color: var(--navy-800);
+  --wave-color: var(--navy-800);
+}
 
 .timeline__title {
   margin-bottom: clamp(2.5rem, 6vw, 4rem);
@@ -382,6 +391,7 @@
 .awards {
   padding-block: var(--section-y);
   background-color: var(--cream);
+  --wave-color: var(--cream);
 }
 
 .awards__cols {

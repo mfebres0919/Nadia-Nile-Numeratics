@@ -21,7 +21,8 @@
   /* Nav link paired with the section it points at. Links whose target is not
      on this page are dropped, so a menu item for a section that does not
      exist yet cannot break the highlighting. */
-  var spy = [].slice.call(document.querySelectorAll(".nav__link[href^='#']"))
+  var spy = [].slice.call(
+      document.querySelectorAll(".nav__link[href^='#'], .subnav__link[href^='#']"))
     .map(function (link) {
       var target = document.querySelector(link.getAttribute("href"));
       return target ? { link: link, target: target } : null;
