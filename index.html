@@ -53,22 +53,9 @@
        hero. Everything the preloader shows is gated behind .is-loading, which
        is set ONLY here: with JavaScript off the class is never added, the
        curtain never displays and the site renders normally. -->
-  <!-- `js` is separate from `is-loading` because it outlives it: scroll-reveal
-       styles hide their content up front, and must only ever do so when there
-       is a script present to reveal it again.
-
-       `is-loading` is added only once per visit. sessionStorage (not local)
-       is deliberate: the curtain should return for a genuinely new visit, but
-       not when moving between pages of the site. Whichever page is landed on
-       first shows it. Wrapped in try/catch because storage access throws
-       outright in some privacy modes — there, the curtain simply shows. -->
-  <script>
-  (function () {
-    var seen = false;
-    try { seen = window.sessionStorage.getItem("nn-intro") === "1"; } catch (e) { seen = false; }
-    document.documentElement.className += seen ? " js" : " js is-loading";
-  }());
-  </script>
+  <!-- Must be synchronous and must stay in <head>: it arms the preloader
+       and the reveal styles before the first paint. See boot.js. -->
+  <script src="boot.js"></script>
 
   <!-- The two rules the curtain cannot afford to wait on: the navy fill (so a
        slow stylesheet can never flash white) and the fixed positioning. The
@@ -910,111 +897,6 @@
     </svg>
   </button>
 
-  <!-- ==========================================================
-       PRELOADER PROGRESS
-       Inline and un-deferred on purpose: the counter has to start the
-       moment the markup above it is parsed, which is earlier than any
-       deferred file would run. It is small enough to stay here.
-       ========================================================== -->
-  <script>
-  (function () {
-    "use strict";
-
-    var root  = document.documentElement;
-    var el    = document.getElementById("preloader");
-    var fill  = document.getElementById("preloader-fill");
-    var pct   = document.getElementById("preloader-pct");
-    if (!el || !fill || !pct) { root.className = root.className.replace(/\bis-loading\b/, ""); return; }
-
-    /* Curtain not armed this visit — drop the markup and do nothing else. */
-    if (!/\bis-loading\b/.test(root.className)) {
-      if (el.parentNode) { el.parentNode.removeChild(el); }
-      return;
-    }
-
-    var MIN_MS  = 2200;   /* Floor, so the climb is watchable even on a warm cache. */
-    var MAX_MS  = 8000;   /* Ceiling: one hung asset must never trap the visitor. */
-    var HOLD_MS = 420;    /* Beat at 100% before the curtain lifts. */
-    var EASE    = 0.075;  /* Lower = lazier glide toward the target. */
-
-    var start    = Date.now();
-    var shown    = 0;     /* What the bar is currently displaying. */
-    var settled  = false;
-    var pageDone = false;
-
-    /* --------------------------------------------------------------
-       Real progress: every <img> on the page plus the window load
-       event, which covers the stylesheets, fonts and this script.
-       -------------------------------------------------------------- */
-    var imgs   = [].slice.call(document.images);
-    var total  = imgs.length + 1;
-    var done   = 0;
-
-    var tally = function () { done++; };
-
-    imgs.forEach(function (img) {
-      if (img.complete) { tally(); return; }
-      img.addEventListener("load",  tally, { once: true });
-      img.addEventListener("error", tally, { once: true });   /* A 404 is still resolved. */
-    });
-
-    window.addEventListener("load", function () { pageDone = true; tally(); });
-
-    /* --------------------------------------------------------------
-       Paint loop. The target is the LOWER of two limits — how much has
-       actually loaded, and how far through MIN_MS we are. Assets pace
-       the bar on a slow connection; the clock paces it on a fast one,
-       which is what stops a warm cache from pinning the bar at 96 and
-       then just waiting out the floor. Capped below 100 either way
-       until the page is genuinely finished.
-       -------------------------------------------------------------- */
-    var tick = function () {
-      var elapsed = Date.now() - start;
-      var real    = (done / total) * 100;
-      var pace    = (elapsed / MIN_MS) * 100;
-      var timeout = elapsed >= MAX_MS;
-      var ready   = (pageDone || timeout) && elapsed >= MIN_MS;
-
-      var target = ready ? 100 : Math.min(real, pace, 96);
-      shown += (target - shown) * EASE;                 /* Ease toward the target. */
-      if (target - shown < 0.4) { shown = target; }     /* Snap out the last sliver. */
-
-      var value = Math.round(shown);
-      fill.style.transform = "scaleX(" + (shown / 100) + ")";
-      pct.textContent = value;
-      el.setAttribute("aria-valuenow", value);
-
-      if (value >= 100 && ready) { reveal(); return; }
-      window.requestAnimationFrame(tick);
-    };
-
-    /* --------------------------------------------------------------
-       Lift the curtain: drop .is-loading so the hero animations that
-       were parked at frame zero start now rather than having played
-       out behind the overlay, then bin the node once it has faded.
-       -------------------------------------------------------------- */
-    function reveal() {
-      if (settled) { return; }
-      settled = true;
-
-      window.setTimeout(function () {
-        el.classList.add("is-done");
-        root.className = root.className.replace(/\bis-loading\b/, "");
-
-        /* Remember it ran, so the rest of the visit skips it. */
-        try { window.sessionStorage.setItem("nn-intro", "1"); } catch (err) {}
-
-        /* Timer rather than transitionend: reduced-motion collapses the
-           transition to ~0ms and the event may never arrive. */
-        window.setTimeout(function () {
-          if (el.parentNode) { el.parentNode.removeChild(el); }
-        }, 900);
-      }, HOLD_MS);
-    }
-
-    window.requestAnimationFrame(tick);
-  }());
-  </script>
 
   <script defer src="main.js"></script>
 </body>
