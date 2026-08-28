@@ -69,7 +69,10 @@
 .fhero__media img {
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4;
+  /* Matches the source photograph's native 2:3, so object-fit has nothing to
+     crop — the raised arm at the top and the A&M letters at the bottom both
+     sit close to the edges and a tighter frame would clip them. */
+  aspect-ratio: 2 / 3;
   object-fit: cover;
 }
 

@@ -141,7 +141,7 @@
           <!-- Submenu of the founder page's sections. The parent stays a real
                link, so it still works without hover, script, or a pointer. -->
           <li class="nav__item nav__item--sub">
-            <a class="nav__link" href="founder.html" aria-haspopup="true">Founder</a>
+            <a class="nav__link nav__link--sub" href="founder.html" aria-haspopup="true">Founder<svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
             <ul class="subnav" role="list">
               <li><a class="subnav__link" href="founder.html#founder">The Founder</a></li>
               <li><a class="subnav__link" href="founder.html#mission">Our Mission</a></li>
@@ -664,7 +664,7 @@
            and are read inconsistently by screen readers.
            ========================================================== -->
       <section class="contact" id="contact">
-        <div class="container contact__grid">
+        <div class="container contact__grid" data-sticky-group>
 
           <div class="contact__media">
             <!-- Placeholder artwork. Swap this <img> for the real photograph;

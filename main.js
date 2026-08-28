@@ -287,6 +287,53 @@
   if (year) { year.textContent = String(new Date().getFullYear()); }
 
   /* ------------------------------------------------------------------
+     Sticky columns
+
+     For each [data-sticky-group], pin whichever child is meaningfully
+     shorter than its sibling so it stays alongside the longer one instead of
+     leaving a tall blank strip. Which side that is differs per section, and
+     a column taller than the viewport must never be pinned — it would freeze
+     with its lower half off-screen — so the choice is made here rather than
+     in a stylesheet.
+     ------------------------------------------------------------------ */
+  var stickyGroups = document.querySelectorAll("[data-sticky-group]");
+
+  if (stickyGroups.length) {
+    /* Below this difference the effect is not worth the movement. */
+    var MIN_DIFF = 150;
+
+    var layoutSticky = function () {
+      var wide   = DESKTOP.matches;
+      var headH  = header ? header.getBoundingClientRect().height : 0;
+      var room   = window.innerHeight - headH - 64;
+
+      Array.prototype.forEach.call(stickyGroups, function (group) {
+        var kids = Array.prototype.slice.call(group.children);
+        if (kids.length !== 2) { return; }
+
+        /* Cleared first so a resize can revoke a pin that no longer fits. */
+        kids.forEach(function (kid) { kid.classList.remove("is-sticky"); });
+        if (!wide) { return; }
+
+        var a = kids[0].offsetHeight;
+        var b = kids[1].offsetHeight;
+        var shortest = a <= b ? kids[0] : kids[1];
+        var diff = Math.abs(a - b);
+
+        if (diff >= MIN_DIFF && Math.min(a, b) <= room) {
+          shortest.classList.add("is-sticky");
+        }
+      });
+    };
+
+    window.addEventListener("resize", layoutSticky, { passive: true });
+
+    /* Images settle after load and change column heights, so measure again. */
+    window.addEventListener("load", layoutSticky);
+    layoutSticky();
+  }
+
+  /* ------------------------------------------------------------------
      Scroll reveal
 
      Any [data-reveal-group] hands its children a .is-revealed class as the

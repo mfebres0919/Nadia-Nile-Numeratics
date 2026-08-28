@@ -510,6 +510,26 @@ p { text-wrap: pretty; }
 
 .nav__link:hover, .nav__link[aria-current] { color: var(--gold-700); }
 
+/* Parent of the submenu: the caret is the visible cue that there is more
+   behind this item. Flex so the arrow sits on the text baseline row rather
+   than forcing the link to a new line. */
+.nav__link--sub {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.nav__caret {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  transition: transform var(--t-base);
+}
+
+/* In the mobile drawer the submenu is always open, so the caret points at
+   the list beneath it permanently. */
+.nav__item--sub .nav__caret { transform: rotate(180deg); }
+
 .nav__cta { display: flex; }
 .nav__cta .btn { width: 100%; }
 
@@ -629,6 +649,15 @@ p { text-wrap: pretty; }
   }
 
   .subnav__link:hover { background-color: var(--stone); }
+
+  /* Desktop: the caret points down at rest and flips up while the panel is
+     open, so its direction always matches what the menu is about to do. */
+  .nav__item--sub .nav__caret { transform: none; }
+
+  .nav__caret { width: 0.875rem; height: 0.875rem; }
+
+  .nav__item--sub:hover .nav__caret,
+  .nav__item--sub:focus-within .nav__caret { transform: rotate(180deg); }
 }
 
 /* -- Founder submenu ------------------------------------------------------
@@ -839,7 +868,34 @@ html.is-loading .marquee__track { animation-play-state: paused; }
 }
 
 /* --------------------------------------------------------------------------
-   10. FOOTER  (site-wide — lives here, never in a page stylesheet)
+   10. STICKY COLUMN  (site-wide)
+
+   Where two columns hold very different amounts of content, the short one
+   finishes early and leaves a tall empty strip beside the long one. Marking
+   the pair [data-sticky-group] lets main.js pin whichever side is shorter,
+   so it travels down with the reader instead of scrolling away into blank
+   space.
+
+   The decision has to be made in script, not CSS: which side is shorter
+   differs per section (Education is the short one under Experience, Research
+   is the short one beside Leadership), and it also depends on whether the
+   short column actually fits the viewport — pinning something taller than
+   the screen would freeze content half off-screen.
+   -------------------------------------------------------------------------- */
+@media (min-width: 64rem) {
+  /* Columns size to their content rather than stretching to the row. A
+     stretched grid item fills its track, leaving a sticky child no room to
+     travel within. */
+  [data-sticky-group] > * { align-self: start; }
+
+  [data-sticky-group] > .is-sticky {
+    position: sticky;
+    top: calc(var(--header-h) + var(--topbar-h) + 1.5rem);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. FOOTER  (site-wide — lives here, never in a page stylesheet)
    -------------------------------------------------------------------------- */
 .footer {
   background-color: var(--navy-900);
@@ -952,7 +1008,7 @@ html.is-loading .marquee__track { animation-play-state: paused; }
 }
 
 /* --------------------------------------------------------------------------
-   11. MOTION PREFERENCES
+   12. MOTION PREFERENCES
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
