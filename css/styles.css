@@ -589,13 +589,28 @@
 /* -- Plate artwork -------------------------------------------------------- */
 .plate__media {
   position: relative;
+  /* Mobile: the media has no text column beside it to take height from, so
+     it gets a box of its own. */
+  aspect-ratio: 16 / 11;
   min-height: 14rem;
   background-color: var(--navy-900);
 }
 
-.plate__media img {
-  position: relative;
+/* <picture> is the positioned box now — the gold crescent behind it is a
+   ::before on the parent, so something has to sit above it. The <img> just
+   fills that box. */
+/* Absolute, so the photograph never contributes to the panel's height. The
+   five tracks ship a mix of landscape and portrait originals; left in flow
+   they would each size the row differently and the panel would jump height
+   every time someone switched tabs. */
+.plate__media picture {
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  display: block;
+}
+
+.plate__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -617,11 +632,19 @@
 
   .plate { grid-template-columns: minmax(0, 1fr) 38%; }
 
+  /* Desktop: height comes from the text column instead, so every track's
+     panel is exactly as tall as its own copy. */
+  .plate__media { aspect-ratio: auto; }
+
   /* The artwork's leading edge is a half-ellipse, with a gold copy of the
      same shape sitting behind and 1.5rem to its left — that offset is the
      whole effect, a crescent of gold along the curve. */
+  .plate__media picture,
   .plate__media img,
   .plate__media::before { border-radius: 46% 0 0 46% / 50% 0 0 50%; }
+
+  /* The radius has to clip the photo, not just round the box it sits in. */
+  .plate__media picture { overflow: hidden; }
 
   .plate__media::before {
     content: "";
@@ -644,16 +667,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   PROCESS
-   Four steps reading left to right. White band, so it separates from the
-   cream curriculum section above it without a rule between them.
+   PATTERNED BAND
+   One continuous surface behind both the process and contact sections. The
+   background lives on this wrapper rather than on each section: applied
+   separately the tiling would restart at their boundary and show a seam.
    -------------------------------------------------------------------------- */
-.process {
-  /* The divider overhangs this section's top edge, so the first row of
-     content is pushed clear of it rather than sitting under the wave. */
-  padding-top: calc(var(--section-y) + var(--divider-h));
-  padding-bottom: var(--section-y);
-
+.patterned {
   /* Scattered-marks pattern. In CSS rather than inline in the markup because
      it is purely decorative: no DOM node, no stacking-context wrangling to
      keep it behind the content, nothing to hide from assistive tech, and the
@@ -665,11 +684,24 @@
   background-attachment: scroll;
 }
 
+/* --------------------------------------------------------------------------
+   PROCESS
+   Four steps reading left to right. White band, so it separates from the
+   cream curriculum section above it without a rule between them.
+   -------------------------------------------------------------------------- */
+.process {
+  /* The divider overhangs this section's top edge, so the first row of
+     content is pushed clear of it rather than sitting under the wave. */
+  padding-top: calc(var(--section-y) + var(--divider-h));
+  padding-bottom: var(--section-y);
+
+}
+
 /* iOS Safari mis-renders fixed backgrounds — it sizes them to the document
    rather than the viewport, so the pattern comes out hugely scaled. Touch
    devices get the normal scrolling background instead. */
 @media (hover: none) {
-  .process { background-attachment: scroll; }
+  .patterned { background-attachment: scroll; }
 }
 
 .process__title {
@@ -821,4 +853,187 @@
 
 @media (prefers-reduced-motion: reduce) and (min-width: 64rem) {
   .process__track { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT
+   Two columns: artwork with overlapping info cards on the left, form on the
+   right. Sits on the shared .patterned surface, so it carries no background
+   of its own.
+   -------------------------------------------------------------------------- */
+.contact { padding-block: var(--section-y); }
+
+.contact__grid {
+  display: grid;
+  gap: clamp(3rem, 6vw, 4.5rem);
+}
+
+/* -- Left column -------------------------------------------------------- */
+.contact__photo {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--navy-900);
+  box-shadow: var(--shadow-md);
+}
+
+/* Fixed ratio so swapping the placeholder for a real photograph cannot
+   change the height of the column and shift the cards. */
+.contact__photo img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.contact__cards {
+  display: grid;
+  gap: 0.75rem;
+  /* Pulled up over the foot of the picture, as in the reference. */
+  margin-top: -3.5rem;
+  padding-inline: 0.75rem;
+}
+
+.info-card {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  background-color: var(--navy-800);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.info-card__icon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-inline: auto;
+  color: var(--gold-400);
+}
+
+.info-card__icon svg { width: 100%; height: 100%; }
+
+.info-card__title {
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.info-card__line {
+  margin-top: 0.25rem;
+  /* Sized so the full address sits on one line in the narrowest card — any
+     larger and it breaks mid-word, which reads as a typo in an email. */
+  font-size: 0.75rem;
+  letter-spacing: -0.005em;
+  line-height: 1.6;
+  color: var(--body-inv);
+  /* break-word, not anywhere: it only splits a word as a last resort, so
+     the <wbr> after the @ in the address is preferred over a mid-domain
+     break. anywhere would let it split at any character instead. */
+  overflow-wrap: break-word;
+}
+
+.info-card__line a:hover { color: var(--gold-400); }
+
+/* -- Right column ------------------------------------------------------- */
+.contact__title {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.contact__lead {
+  margin-top: 1rem;
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  font-weight: 300;
+}
+
+.form { margin-top: 2rem; }
+
+.form__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Labels are present for every control and hidden visually only — the
+   placeholder alone disappears the moment someone types, and is announced
+   inconsistently across screen readers. */
+.field__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field__input {
+  width: 100%;
+  padding: 0.9375rem 1.125rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background-color: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.field__input::placeholder { color: #8b95a4; }
+
+.field__input:focus-visible {
+  outline: none;
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 3px rgba(198, 154, 62, 0.2);
+}
+
+.field__input--area {
+  min-height: 10rem;
+  line-height: 1.6;
+  resize: vertical;   /* Vertical only: horizontal resizing breaks the grid. */
+}
+
+/* The native arrow is suppressed so the control matches the text inputs;
+   the chevron below replaces it. */
+.field__select { position: relative; display: block; }
+
+.field__select select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.75rem;
+  cursor: pointer;
+}
+
+.field__select svg {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--gold-600);
+  transform: translateY(-50%);
+  pointer-events: none;   /* Clicks must reach the <select> underneath. */
+}
+
+/* Until something is chosen, the disabled placeholder option is showing, so
+   the control is styled to read as placeholder text rather than an answer. */
+.field__select select:invalid { color: #8b95a4; }
+
+.form__submit { margin-top: 1.5rem; }
+
+@media (min-width: 40rem) {
+  .form__grid { grid-template-columns: repeat(2, 1fr); }
+  .field--wide { grid-column: 1 / -1; }
+  .contact__cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 64rem) {
+  .contact__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: start;
+  }
+
+  .contact__cards { margin-top: -4.5rem; }
+  .contact__panel { padding-top: 1rem; }
 }

@@ -124,9 +124,8 @@
 
       <nav class="nav" id="nav" aria-label="Primary">
         <ul class="nav__list">
-          <li><a class="nav__link" href="#hero" aria-current="page">Home</a></li>
+          <li><a class="nav__link" href="#hero">Home</a></li>
           <li><a class="nav__link" href="#curriculum">Curriculum</a></li>
-          <li><a class="nav__link" href="#founder">Founder</a></li>
           <li><a class="nav__link" href="#process">Process</a></li>
           <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>
@@ -435,8 +434,11 @@
         </div>
 
         <div class="plate__media">
-          <img src="images/curriculum/sat-act.svg" alt="A normal distribution curve above a rising bar chart of scores"
-               width="800" height="800" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/curriculum/sat-act.webp" type="image/webp">
+            <img src="images/curriculum/sat-act.jpg" alt="A stack of SAT preparation books on a desk, with students studying in the background"
+                 width="1350" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -461,8 +463,11 @@
         </div>
 
         <div class="plate__media">
-          <img src="images/curriculum/algebra-geometry.svg" alt="A coordinate plane with a parabola and a right triangle"
-               width="800" height="800" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/curriculum/algebra-geometry.webp" type="image/webp">
+            <img src="images/curriculum/algebra-geometry.jpg" alt="A scientific calculator resting on an open workbook of geometry diagrams and worked answers"
+                 width="1350" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -487,8 +492,11 @@
         </div>
 
         <div class="plate__media">
-          <img src="images/curriculum/precalculus-trig.svg" alt="A unit circle unrolling into a sine wave"
-               width="800" height="800" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/curriculum/precalculus-trig.webp" type="image/webp">
+            <img src="images/curriculum/precalculus-trig.jpg" alt="A hand-drawn vector diagram with labelled angles and axes on graph paper"
+                 width="1350" height="900" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -513,8 +521,11 @@
         </div>
 
         <div class="plate__media">
-          <img src="images/curriculum/calculus.svg" alt="A curve with Riemann sum columns beneath it and a tangent line"
-               width="800" height="800" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/curriculum/calculus.webp" type="image/webp">
+            <img src="images/curriculum/calculus.jpg" alt="An open calculus workbook filled with worked integration formulas, a pen resting on the page"
+                 width="900" height="1200" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -539,8 +550,11 @@
         </div>
 
         <div class="plate__media">
-          <img src="images/curriculum/physics-engineering.svg" alt="A projectile arc with force vectors and a gear"
-               width="800" height="800" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="images/curriculum/physics-engineering.webp" type="image/webp">
+            <img src="images/curriculum/physics-engineering.jpg" alt="A drafting compass and set square lying on a velocity-against-time graph"
+                 width="900" height="1350" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -548,71 +562,299 @@
     </section>
 
     <!-- ==========================================================
-         PROCESS
-         An endless right-to-left track. The second <ol> is an exact copy of
-         the first offset one width along — that duplicate is what makes the
-         loop seamless — and is hidden from assistive tech so the four steps
-         are only announced once.
+         PATTERNED BAND
+         Holds the process and contact sections. The scattered-marks
+         background lives on this wrapper, not on either section, so the two
+         read as one continuous surface — putting it on each separately would
+         restart the tiling at their boundary and show a seam.
          ========================================================== -->
-    <section class="process" id="process">
+    <div class="patterned">
 
-      <div class="container">
-        <p class="kicker">Our Process</p>
-        <h2 class="process__title">How We Turn Effort Into Understanding</h2>
-      </div>
+      <!-- ==========================================================
+           PROCESS
+           An endless right-to-left track. The second <ol> is an exact copy of
+           the first offset one width along — that duplicate is what makes the
+           loop seamless — and is hidden from assistive tech so the four steps
+           are only announced once.
+           ========================================================== -->
+      <section class="process" id="process">
 
-      <div class="process__marquee" role="group" aria-label="Our four-step process">
-        <ol class="process__track" role="list">
-          <li class="step">
-            <span class="step__num" aria-hidden="true">01</span>
-            <h3 class="step__title">Diagnostic Session</h3>
-            <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">02</span>
-            <h3 class="step__title">Custom Study Plan</h3>
-            <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">03</span>
-            <h3 class="step__title">One-to-One Sessions</h3>
-            <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">04</span>
-            <h3 class="step__title">Progress Review</h3>
-            <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
-          </li>
-        </ol>
-        <ol class="process__track" role="list" aria-hidden="true">
-          <li class="step">
-            <span class="step__num" aria-hidden="true">01</span>
-            <h3 class="step__title">Diagnostic Session</h3>
-            <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">02</span>
-            <h3 class="step__title">Custom Study Plan</h3>
-            <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">03</span>
-            <h3 class="step__title">One-to-One Sessions</h3>
-            <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
-          </li>
-          <li class="step">
-            <span class="step__num" aria-hidden="true">04</span>
-            <h3 class="step__title">Progress Review</h3>
-            <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
-          </li>
-        </ol>
-      </div>
+        <div class="container">
+          <p class="kicker">Our Process</p>
+          <h2 class="process__title">How We Turn Effort Into Understanding</h2>
+        </div>
 
-    </section>
+        <div class="process__marquee" role="group" aria-label="Our four-step process">
+          <ol class="process__track" role="list">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <h3 class="step__title">Diagnostic Session</h3>
+              <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <h3 class="step__title">Custom Study Plan</h3>
+              <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <h3 class="step__title">One-to-One Sessions</h3>
+              <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <h3 class="step__title">Progress Review</h3>
+              <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
+            </li>
+          </ol>
+          <ol class="process__track" role="list" aria-hidden="true">
+            <li class="step">
+              <span class="step__num" aria-hidden="true">01</span>
+              <h3 class="step__title">Diagnostic Session</h3>
+              <p class="step__text">We open with a full diagnostic to find where the gaps actually are &mdash; not where the syllabus assumes they are. No cost, no obligation.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">02</span>
+              <h3 class="step__title">Custom Study Plan</h3>
+              <p class="step__text">You get a written plan mapping every topic to a session and the date it needs to be mastered by. You approve it before any work begins.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">03</span>
+              <h3 class="step__title">One-to-One Sessions</h3>
+              <p class="step__text">Weekly instruction built around that plan. Each concept is worked from first principles, then drilled until the method holds under pressure.</p>
+            </li>
+            <li class="step">
+              <span class="step__num" aria-hidden="true">04</span>
+              <h3 class="step__title">Progress Review</h3>
+              <p class="step__text">We re-test against the original diagnostic every few weeks and share the results, so improvement is measured rather than assumed.</p>
+            </li>
+          </ol>
+        </div>
+
+      </section>
+
+      <!-- ==========================================================
+           CONTACT
+           Labels are present on every control and only visually hidden —
+           the reference relies on placeholders alone, which vanish on typing
+           and are read inconsistently by screen readers.
+           ========================================================== -->
+      <section class="contact" id="contact">
+        <div class="container contact__grid">
+
+          <div class="contact__media">
+            <!-- Placeholder artwork. Swap this <img> for the real photograph;
+                 the frame is a fixed 4:5 so the layout will not shift. -->
+            <div class="contact__photo">
+              <img src="images/contact-img.jpg" alt=""
+                   width="800" height="1000" loading="lazy" decoding="async">
+            </div>
+
+            <ul class="contact__cards" role="list">
+              <li class="info-card">
+                <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg></span>
+                <h3 class="info-card__title">Write to us</h3>
+                <p class="info-card__line">
+                  <!-- <wbr> offers the line breaker a sensible place to split
+                       the address, so a narrow card wraps it after the @
+                       rather than mid-domain. -->
+                  <a href="mailto:nilenumeratics@gmail.com">nilenumeratics@<wbr>gmail.com</a>
+                </p>
+              </li>
+              <li class="info-card">
+                <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+                <h3 class="info-card__title">Availability</h3>
+                <p class="info-card__line">Now booking sessions</p>
+              </li>
+              <li class="info-card">
+                <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"></path><path d="M5 10v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"></path></svg></span>
+                <h3 class="info-card__title">Every session</h3>
+                <p class="info-card__line">One-to-one, never in groups</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="contact__panel">
+            <p class="kicker">Send Us a Message</p>
+            <h2 class="contact__title">Feel Free to Write</h2>
+            <p class="contact__lead">
+              Tell us where the student is now and where they need to get to.
+              Every enquiry is answered personally.
+            </p>
+
+            <!-- NOTE: this form has no endpoint yet. Give the <form> an action
+                 (a form service, or your host's form handling) before launch,
+                 or submissions will go nowhere. -->
+            <form class="form" method="post">
+              <div class="form__grid">
+            <p class="field">
+              <label class="field__label" for="first-name">First name</label>
+              <input class="field__input" id="first-name" name="first-name" type="text"
+                     placeholder="First name" autocomplete="given-name" required>
+            </p>
+            <p class="field">
+              <label class="field__label" for="last-name">Last name</label>
+              <input class="field__input" id="last-name" name="last-name" type="text"
+                     placeholder="Last name" autocomplete="family-name" required>
+            </p>
+            <p class="field">
+              <label class="field__label" for="email">Email address</label>
+              <input class="field__input" id="email" name="email" type="email"
+                     placeholder="Enter email" autocomplete="email" required>
+            </p>
+            <p class="field">
+              <label class="field__label" for="phone">Phone number</label>
+              <input class="field__input" id="phone" name="phone" type="tel"
+                     placeholder="Enter phone" autocomplete="tel">
+            </p>
+
+                <p class="field field--wide">
+                  <label class="field__label" for="curriculum">Curriculum of interest</label>
+                  <span class="field__select">
+                    <select class="field__input" id="curriculum" name="curriculum" required>
+                      <option value="" disabled selected>Which curriculum?</option>
+                <option value="SAT and ACT Mathematics">SAT &amp; ACT Mathematics</option>
+                <option value="Algebra and Geometry">Algebra &amp; Geometry</option>
+                <option value="Precalculus and Trigonometry">Precalculus &amp; Trigonometry</option>
+                <option value="Calculus I-III">Calculus I&ndash;III</option>
+                <option value="Physics and Engineering Mathematics">Physics &amp; Engineering Mathematics</option>
+                <option value="Not sure yet - help me choose">Not sure yet &mdash; help me choose</option>
+                <option value="General Question">General Question</option>                
+                    </select>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                  </span>
+                </p>
+
+                <p class="field field--wide">
+                  <label class="field__label" for="message">Message</label>
+                  <textarea class="field__input field__input--area" id="message" name="message"
+                            rows="6" placeholder="Enter your message" required></textarea>
+                </p>
+              </div>
+
+              <button class="btn btn--gold form__submit" type="submit">
+                Send Message
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </section>
+    </div>
 
   </main>
 
-  <!-- Footer will go here — its styles belong in css/global.css -->
+  <!-- ==========================================================
+       FOOTER
+       Site-wide, so every rule for it lives in css/global.css section 8.
+       ========================================================== -->
+  <footer class="footer on-dark">
+    <div class="container footer__grid">
+
+      <div class="footer__brand">
+        <a class="logo" href="/" aria-label="Nile Numeratics — home">
+          <img class="logo__mark" src="images/logo-nile-numeratics.png" alt=""
+               width="50" height="50" loading="lazy" decoding="async">
+          <span class="logo__text">
+            <span class="logo__name">Nile Numeratics</span>
+            <span class="logo__tag">STEM Education</span>
+          </span>
+        </a>
+
+        <p class="footer__blurb">
+          Advanced STEM instruction led by an automotive engineer and HBCU alum
+          &mdash; from SAT preparation through multivariable calculus and
+          engineering mathematics.
+        </p>
+      </div>
+
+      <nav class="footer__col" aria-labelledby="footer-explore">
+        <h2 class="footer__heading" id="footer-explore">Explore</h2>
+        <ul class="footer__list" role="list">
+            <li><a class="footer__link" href="#hero">Home</a></li>
+            <li><a class="footer__link" href="#curriculum">Curriculum</a></li>
+            <li><a class="footer__link" href="#process">Process</a></li>
+            <li><a class="footer__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-labelledby="footer-curriculum">
+        <h2 class="footer__heading" id="footer-curriculum">Curriculum</h2>
+        <ul class="footer__list" role="list">
+            <li><a class="footer__link" href="#curriculum" data-track="sat">SAT &amp; ACT Mathematics</a></li>
+            <li><a class="footer__link" href="#curriculum" data-track="algebra">Algebra &amp; Geometry</a></li>
+            <li><a class="footer__link" href="#curriculum" data-track="precalculus">Precalculus &amp; Trigonometry</a></li>
+            <li><a class="footer__link" href="#curriculum" data-track="calculus">Calculus I&ndash;III</a></li>
+            <li><a class="footer__link" href="#curriculum" data-track="physics">Physics &amp; Engineering Mathematics</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2 class="footer__heading">Get in touch</h2>
+
+        <p class="footer__contact">
+          <span class="footer__contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m2 7 10 6 10-6"></path>
+            </svg>
+          </span>
+          <a class="footer__link" href="mailto:nilenumeratics@gmail.com">nilenumeratics@<wbr>gmail.com</a>
+        </p>
+
+        <p class="footer__contact">
+          <span class="footer__contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>
+            </svg>
+          </span>
+          Now booking sessions
+        </p>
+
+        <a class="btn btn--gold footer__cta" href="#contact">
+          Book a Session
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <div class="container footer__bar-inner">
+        <!-- The year is filled in by main.js; the literal below is the
+             fallback that shows when the script has not run. -->
+        <p class="footer__fine">
+          &copy; <span id="footer-year">2026</span> Nile Numeratics. All rights reserved.
+        </p>
+        <p class="footer__fine footer__fine--motto">Precision in every variable.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================
+       BACK TO TOP
+       Hidden until the page has scrolled a screen or so; main.js toggles
+       .is-visible. It is a real <button>, so it is reachable by keyboard
+       and announced properly.
+       ========================================================== -->
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path>
+    </svg>
+  </button>
 
   <!-- ==========================================================
        PRELOADER PROGRESS

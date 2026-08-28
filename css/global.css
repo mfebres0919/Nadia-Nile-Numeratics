@@ -504,7 +504,7 @@ p { text-wrap: pretty; }
   transition: color var(--t-fast);
 }
 
-.nav__link:hover, .nav__link[aria-current="page"] { color: var(--gold-700); }
+.nav__link:hover, .nav__link[aria-current] { color: var(--gold-700); }
 
 .nav__cta { display: flex; }
 .nav__cta .btn { width: 100%; }
@@ -547,7 +547,7 @@ p { text-wrap: pretty; }
     color: var(--body);
   }
 
-  .nav__link:hover, .nav__link[aria-current="page"] { color: var(--ink); }
+  .nav__link:hover, .nav__link[aria-current] { color: var(--ink); }
 
   /* Gold rule that wipes in from the left */
   .nav__link::after {
@@ -563,7 +563,7 @@ p { text-wrap: pretty; }
     transition: transform var(--t-base);
   }
 
-  .nav__link:hover::after, .nav__link[aria-current="page"]::after { transform: scaleX(1); }
+  .nav__link:hover::after, .nav__link[aria-current]::after { transform: scaleX(1); }
 
   .nav__cta .btn { min-height: 2.875rem; padding: 0.75rem 1.5rem; font-size: 0.75rem; }
 }
@@ -672,12 +672,163 @@ html.is-loading .hero__ring,
 html.is-loading .marquee__track { animation-play-state: paused; }
 
 /* --------------------------------------------------------------------------
-   8. FOOTER  (site-wide — lives here, never in a page stylesheet)
+   8. BACK TO TOP  (site-wide)
    -------------------------------------------------------------------------- */
-/* Footer styles will be added here when the footer is built. */
+.to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 1500;            /* Over page content, under the drawer and skip link. */
+
+  display: grid;
+  place-items: center;
+  width: 2.875rem;
+  height: 2.875rem;
+  color: var(--navy-900);
+  background-color: var(--gold-500);
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+
+  /* Hidden until main.js adds .is-visible. visibility keeps it out of the
+     tab order while it is off screen — opacity alone would leave a button
+     a keyboard user could focus but not see. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  transition: opacity var(--t-base), transform var(--t-base),
+              visibility var(--t-base), background-color var(--t-fast);
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover { background-color: var(--gold-400); }
+.to-top svg { width: 1.125rem; height: 1.125rem; }
+
+/* The header takes focus after the jump; it is a scroll destination, not a
+   control, so it should not draw a focus ring. */
+#header:focus { outline: none; }
+
+@media print { .to-top { display: none; } }
 
 /* --------------------------------------------------------------------------
-   9. MOTION PREFERENCES
+   9. FOOTER  (site-wide — lives here, never in a page stylesheet)
+   -------------------------------------------------------------------------- */
+.footer {
+  background-color: var(--navy-900);
+  /* Hairline of brand gold along the top edge, so the footer reads as a
+     deliberate close rather than the page simply running out. */
+  border-top: 3px solid var(--gold-600);
+}
+
+.footer__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  padding-block: clamp(3rem, 7vw, 4.5rem);
+}
+
+/* -- Brand column -- */
+.footer .logo__name { color: var(--white); }
+.footer .logo__tag { color: var(--gold-400); }
+
+.footer__blurb {
+  margin-top: 1.25rem;
+  max-width: 34ch;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+/* -- Link columns -- */
+.footer__heading {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.footer__list {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+}
+
+.footer__link {
+  display: inline-block;
+  font-size: 0.9375rem;
+  color: var(--body-inv);
+  transition: color var(--t-fast), transform var(--t-fast);
+}
+
+.footer__link:hover {
+  color: var(--gold-400);
+  transform: translateX(3px);
+}
+
+/* -- Contact column -- */
+.footer__contact {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+  font-size: 0.9375rem;
+  /* Backstop for the address in a narrow column; the <wbr> after the @ in
+     the markup is what decides where it actually splits. */
+  overflow-wrap: break-word;
+}
+
+.footer__contact-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  color: var(--gold-400);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+
+.footer__contact-icon svg { width: 1rem; height: 1rem; }
+
+.footer__cta { margin-top: 1.75rem; }
+
+/* -- Bottom bar -- */
+.footer__bar { border-top: 1px solid var(--hairline-inv); }
+
+.footer__bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.5rem;
+}
+
+.footer__fine {
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer__fine--motto { color: var(--gold-400); }
+
+@media (min-width: 40rem) {
+  .footer__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 64rem) {
+  /* Brand column is widest; the three link columns share the rest evenly. */
+  .footer__grid {
+    grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. MOTION PREFERENCES
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

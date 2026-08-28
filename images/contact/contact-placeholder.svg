@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Placeholder for a photograph of the founder">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c2143"/><stop offset="1" stop-color="#071429"/>
+    </linearGradient>
+    <linearGradient id="cgold" gradientUnits="userSpaceOnUse" x1="200" y1="300" x2="600" y2="700">
+      <stop offset="0" stop-color="#e6c87f"/><stop offset="1" stop-color="#b98c2e"/>
+    </linearGradient>
+    <pattern id="cgrid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="cglow" cx=".5" cy=".42" r=".6">
+      <stop offset="0" stop-color="#c69a3e" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#c69a3e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#cbg)"/>
+  <rect width="800" height="1000" fill="url(#cgrid)"/>
+  <rect width="800" height="1000" fill="url(#cglow)"/>
+  <g fill="none" stroke="url(#cgold)" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="180" y="330" width="440" height="290" rx="26" stroke-width="7"/>
+    <path d="M180 372 400 520 620 372" stroke-width="6"/>
+    <path d="M300 660 h200" stroke-width="6" stroke-opacity=".5"/>
+    <path d="M340 700 h120" stroke-width="6" stroke-opacity=".3"/>
+  </g>
+</svg>

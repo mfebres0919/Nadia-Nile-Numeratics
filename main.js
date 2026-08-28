@@ -16,22 +16,88 @@
      Header: swap to the solid state once the page leaves the hero top.
      rAF-throttled + passive so it never blocks scrolling.
      ------------------------------------------------------------------ */
-  if (header) {
-    var ticking = false;
+  var toTop = document.getElementById("to-top");
 
-    var setHeaderState = function () {
-      header.classList.toggle("is-scrolled", window.scrollY > 40);
-      ticking = false;
-    };
+  /* Nav link paired with the section it points at. Links whose target is not
+     on this page are dropped, so a menu item for a section that does not
+     exist yet cannot break the highlighting. */
+  var spy = [].slice.call(document.querySelectorAll(".nav__link[href^='#']"))
+    .map(function (link) {
+      var target = document.querySelector(link.getAttribute("href"));
+      return target ? { link: link, target: target } : null;
+    })
+    .filter(Boolean);
 
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(setHeaderState);
+  /* Marks the section currently under the header as the active one. Measured
+     from getBoundingClientRect rather than offsetTop: several sections sit
+     inside wrappers, and offsetTop is relative to the nearest positioned
+     ancestor, which would give the wrong figure for those. */
+  var setActiveLink = function () {
+    if (!spy.length) { return; }
+
+    var offset  = header ? header.getBoundingClientRect().height : 0;
+    var line    = window.scrollY + offset + 12;
+    var current = spy[0];
+
+    spy.forEach(function (pair) {
+      var top = pair.target.getBoundingClientRect().top + window.scrollY;
+      if (top <= line) { current = pair; }
+    });
+
+    /* Pin to the last section once the page bottom is reached — a short
+       final section can never cross the line on its own, so without this the
+       last link would never light up. */
+    if (window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2) {
+      current = spy[spy.length - 1];
+    }
+
+    spy.forEach(function (pair) {
+      if (pair === current) {
+        pair.link.setAttribute("aria-current", "true");
+      } else {
+        pair.link.removeAttribute("aria-current");
       }
-    }, { passive: true });
+    });
+  };
 
-    setHeaderState();
+  var ticking = false;
+
+  var onScroll = function () {
+    if (header) { header.classList.toggle("is-scrolled", window.scrollY > 40); }
+    if (toTop)  { toTop.classList.toggle("is-visible", window.scrollY > 600); }
+    setActiveLink();
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
+
+  /* Section offsets move when the layout reflows, so recompute on resize. */
+  window.addEventListener("resize", setActiveLink, { passive: true });
+  onScroll();
+
+  /* ------------------------------------------------------------------
+     Back to top
+     ------------------------------------------------------------------ */
+  if (toTop) {
+    toTop.addEventListener("click", function () {
+      /* No behavior option: html has scroll-behavior: smooth, and the
+         reduced-motion block overrides it to auto. Passing "smooth" here
+         would ignore that preference. */
+      window.scrollTo({ top: 0 });
+
+      /* Move focus with the viewport, or a keyboard user carries on tabbing
+         from the footer they just left. */
+      if (header) {
+        header.tabIndex = -1;
+        header.focus({ preventScroll: true });
+      }
+    });
   }
 
   /* ------------------------------------------------------------------
@@ -127,6 +193,7 @@
      the section still reads as a complete block of content.
      ------------------------------------------------------------------ */
   var tablist = document.querySelector(".tracks");
+  var selectTrack = null;   /* Assigned below; used by the footer links. */
 
   if (tablist) {
     var tabs = [].slice.call(tablist.querySelectorAll("[role='tab']"));
@@ -148,6 +215,8 @@
 
       if (moveFocus) { tab.focus(); }
     };
+
+    selectTrack = select;
 
     tablist.addEventListener("click", function (e) {
       var tab = e.target.closest("[role='tab']");
@@ -176,6 +245,32 @@
       }
     });
   }
+
+  /* ------------------------------------------------------------------
+     Footer curriculum links
+
+     Each carries data-track naming the tab it should open. The href stays
+     #curriculum so the anchor still scrolls on its own — this only opens the
+     matching panel on the way, and still degrades to a plain jump link if
+     the tablist is missing.
+     ------------------------------------------------------------------ */
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest("[data-track]");
+    if (!link || !selectTrack) { return; }
+
+    var tab = document.getElementById("tab-" + link.getAttribute("data-track"));
+    if (tab) { selectTrack(tab, false); }
+  });
+
+  /* ------------------------------------------------------------------
+     Footer year
+
+     The markup ships with the current year hard-coded, so this only has to
+     correct it once the calendar rolls over — with the script absent the
+     footer still reads sensibly rather than showing an empty gap.
+     ------------------------------------------------------------------ */
+  var year = document.getElementById("footer-year");
+  if (year) { year.textContent = String(new Date().getFullYear()); }
 
   /* ------------------------------------------------------------------
      Scroll reveal
