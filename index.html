@@ -162,8 +162,17 @@
           <!-- Submenu of the founder page's sections. The parent stays a real
                link, so it still works without hover, script, or a pointer. -->
           <li class="nav__item nav__item--sub">
-            <a class="nav__link nav__link--sub" href="founder.html" aria-haspopup="true">Founder<svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
-            <ul class="subnav" role="list">
+            <!-- The label stays a plain link to the founder page; the caret is a
+                 separate button that only expands the list. Merging the two would
+                 mean a tap could either navigate or expand, and the user cannot
+                 tell which they are about to get. -->
+            <span class="nav__row">
+              <a class="nav__link nav__link--sub" href="founder.html">Founder</a>
+              <button class="nav__sub-toggle" type="button"
+                      aria-expanded="false" aria-controls="founder-submenu"
+                      aria-label="Show founder page sections"><svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+            </span>
+            <ul class="subnav" id="founder-submenu" role="list">
               <li><a class="subnav__link" href="founder.html#founder">The Founder</a></li>
               <li><a class="subnav__link" href="founder.html#mission">Our Mission</a></li>
               <li><a class="subnav__link" href="founder.html#experience">Experience &amp; Education</a></li>
@@ -172,6 +181,7 @@
             </ul>
           </li>
           <li><a class="nav__link" href="#process">Process</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>
         <div class="nav__cta">
           <a class="btn btn--gold" href="#contact">Book a Session</a>

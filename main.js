@@ -334,6 +334,36 @@
   }
 
   /* ------------------------------------------------------------------
+     Submenu disclosure (mobile drawer)
+
+     Desktop opens the panel on hover, which touch has no equivalent for, so
+     the caret is a real button there. The label beside it stays a link to
+     the founder page — one control cannot both navigate and expand without
+     the user guessing which they will get.
+     ------------------------------------------------------------------ */
+  var subToggle = document.querySelector(".nav__sub-toggle");
+  var subItem   = subToggle && subToggle.closest(".nav__item--sub");
+
+  if (subToggle && subItem) {
+    subToggle.addEventListener("click", function () {
+      var open = subItem.classList.toggle("is-open");
+      subToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      subToggle.setAttribute("aria-label",
+        open ? "Hide founder page sections" : "Show founder page sections");
+    });
+
+    /* Collapse when the drawer closes, so reopening it never starts expanded. */
+    var collapseSub = function () {
+      subItem.classList.remove("is-open");
+      subToggle.setAttribute("aria-expanded", "false");
+      subToggle.setAttribute("aria-label", "Show founder page sections");
+    };
+
+    if (toggle) { toggle.addEventListener("click", collapseSub); }
+    if (backdrop) { backdrop.addEventListener("click", collapseSub); }
+  }
+
+  /* ------------------------------------------------------------------
      Scroll reveal
 
      Any [data-reveal-group] hands its children a .is-revealed class as the
